@@ -1,0 +1,113 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 10/09/2023, 4:56:22 p. m.
+    Author     : pirul
+*/
+
+header {
+    background-color: rgba(0, 0, 0, .6);
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    padding: 2px 5px;
+    height: 60px;
+}
+
+header ul {
+    display: flex;
+    flex-direction: row;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 91%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+header ul li {
+    list-style: none;
+}
+
+header ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+header ul li a:hover {
+    border-bottom: 2px solid white;
+
+}
+
+
+header.scroll {
+
+    background-color: rgba(0, 0, 0, .7);
+}
+
+.contenedor-menu {
+    width: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* font-size: 30px; */
+}
+
+.contenedor-menu i.bi-list{
+    font-size: 32px;
+}
+
+.btn-menu {
+    background-color: transparent;
+    color: white;
+    border: 0;
+    font-size: 30px;
+}
+
+.offcanvas-body ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.offcanvas-body ul li {
+    list-style: none;
+    margin: 10px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.offcanvas-body ul li a {
+    text-decoration: none;
+    color: rgb(92, 95, 98);
+    /*background-color: rgb(92, 184, 92);*/
+    padding: 7px;
+    width: 100%;
+    letter-spacing: 2px;
+    font-size: 17px
+}
+
+.offcanvas-body {
+    /*background-color: rgba(33, 35, 37, 0.5);*/
+}
+
+
+.offcanvas-body ul li a:hover {
+    background-color: rgb(52, 58, 64);
+    color: white;
+}
+
+
+.img img {
+    width: 80px;
+    width: 65px;
+}
