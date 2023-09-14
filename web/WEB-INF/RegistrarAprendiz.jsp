@@ -88,7 +88,7 @@
             var pDocumento = document.getElementById("pDocumento");
             var pCorreo = document.getElementById("pCorreo");
             var botonRegistrar = document.getElementById("Registar");
-            
+
             function verificarDocumentoAprendiz() {
                 var inputDocumento = document.getElementById("DocumentoAprendiz").value;
                 if (inputDocumento.length >= 7) {
@@ -114,7 +114,7 @@
                     }
                 }
             }
-            
+
 //            var p
             function verificarCorreoAprendiz() {
                 var inputCorreo = document.getElementById("CorreoAprendiz");
@@ -136,11 +136,11 @@
                     var datos = "fCorreoAprendiz=" + inputCorreo.value + "&CRUD=correoValido";
                     xhr.send(datos);
                 } else {
-                        pCorreo.innerHTML = "";
+                    pCorreo.innerHTML = "";
                 }
             }
-            
-            
+
+
         </script>
         <script src="archivos/js/main.js"></script>
         <!--<script src="archivos/js/jsRegistrar.js"></script>-->
