@@ -53,8 +53,8 @@
                                 </div>
                             </a>
                             <div class="inputRadio">
-                                <input id="1" type="radio" name="fCandidato" value="1">
-                                <label for="1">Seleccionar</label>
+                                <input id="${candidato.idCandidato}" type="radio" name="fCandidato" value="${candidato.idCandidato}">
+                                <label for="${candidato.idCandidato}">Seleccionar</label>
                             </div>
                         </div>
                     </c:forEach>  

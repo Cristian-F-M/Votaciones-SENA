@@ -3,9 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/javascript.js to edit this template
  */
 
-
+//Funcion para que se muestre el mensaje que viene del controlador
 function PopUp() {
-
     var mensaje = 'request';
     if (mensaje !== "null") {
         var BTNPopUp = document.getElementById("BTNPopUp");
@@ -14,43 +13,57 @@ function PopUp() {
 }
 
 
-
+//Declaracion de variables 
 var boton = document.querySelector("button[value=Enviar]");
 var BTNModal = document.getElementById("BTNModal");
 
 
-
+//Cuando se haga click en el boton se hace una funcion y se detiene la accion default del boton
 boton.addEventListener('click', (evt) => {
     var inputsRadio = document.querySelectorAll("input[name=fCandidato]");
-    // console.log(inputsRadio)
-    evt.preventDefault();
 
-    inputsRadio.forEach(function (input) {
+    console.log(inputsRadio);
+    for (let i = 0; i < inputsRadio.length; i++) {
+//if para saber si hay alguno seleccionado   
+//Si es así se despliega una ventana emergente con la verificacion
+        var input = inputsRadio[i];
         if (input.checked) {
-            document.querySelector(".pMensaje").innerHTML = "";
-            var a = document.querySelector("input[name=fCandidato]:checked");
-            console.log(a)
-            document.querySelector(".modal-body").innerHTML = `Vas a votar por ${a.id} confirmar voto?`;
+            var espacio = input.closest(".card-candidato");
+            var h2 = espacio.querySelector("a .nombre h2");
+            document.querySelector(".modal-body").innerHTML = `Vas a votar por <strong>${h2.textContent}</strong> confirmar voto?`;
             BTNModal.click();
-            return;
+
+            document.querySelector(".pMensaje").innerHTML = "";
+            break;
+            ;
         } else {
             document.querySelector(".pMensaje").innerHTML = "Selecciona a un candidato";
             evt.preventDefault();
         }
-    });
+    }
+
 });
 
+
+
+//declaracion de variable
 var radios = document.querySelectorAll('input[type=radio]');
 // console.log(radios);
 
+
+//se recorren los input para detectar un cambio
+
 radios.forEach(function (radio) {
     radio.addEventListener('change', () => {
+
+
+//        si esta checked el label cambia a seleccionado
         if (radio.checked) {
             var label = document.querySelector("label[for='" + radio.id + "']");
             // console.log(radio.id);
             label.innerHTML = "Selecionado";
         }
-
+// Recorre todos los inputs para saber si no está checked : Canbia el texto del label a seleccionar
         radios.forEach(function (radio) {
             if (!radio.checked) {
                 var label = document.querySelector("label[for='" + radio.id + "']");
@@ -61,9 +74,12 @@ radios.forEach(function (radio) {
     });
 });
 
-// Hacer la consulata AJAX para saber la fecha y asignarla a fechaFin Votacion
+// Hacer la consulata AJAX para saber la fecha y asignarla a fechaFin Votacion ----- [falta]
 var fechaFinVotacion = new Date("2023-09-21T00:00:00");
 
+
+
+//Funcion para una cuenta regresiva para el fin de las votaciones
 function actualizarCuentaRegresiva() {
     const ahora = new Date();
     const diferencia = fechaFinVotacion - ahora;
@@ -80,10 +96,10 @@ function actualizarCuentaRegresiva() {
     }
 }
 
-// Llama a la función para actualizar la cuenta regresiva cada segundo
+// La funcion se ejecuta cada 1000ms (1seg)
 setInterval(actualizarCuentaRegresiva, 1000);
 
-// Llama a la función inicial para mostrar la cuenta regresiva al cargar la página
+// se ejecuta la funcion al inicio para ver una cuenta regresiva
 actualizarCuentaRegresiva();
 
 

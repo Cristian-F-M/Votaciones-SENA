@@ -107,6 +107,7 @@ public class Candidato {
                 aprendiz = new Aprendiz();
                 
                 candidato.setIdCandidato(rs.getInt("idCandidato"));
+                aprendiz.setIdAprendiz(rs.getInt("idAprendiz"));
                 aprendiz.setNombreAprendiz(rs.getString("nombreAprendiz"));
                 aprendiz.setTipoDocumentoAprendiz(rs.getInt("tipoDocumentoAprendiz"));
                 aprendiz.setDocumentoAprendiz(rs.getString("documentoAprendiz"));

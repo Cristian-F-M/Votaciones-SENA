@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import modelos.Aprendiz;
 import modelos.Candidato;
 
 /**
@@ -74,7 +75,7 @@ public class ContralodorCandidato extends HttpServlet {
             throws ServletException, IOException {
 
         String id = request.getParameter("fIdCandidato");
-        String nombreCandidato = request.getParameter("fNombreCandidato");
+        String idApren = request.getParameter("fIdAprendiz");
         String descripcionCandidato = request.getParameter("fDescripcionCandidato");
         String fotoCandidato = request.getParameter("fFotoCandidato");
         String accion = request.getParameter("fAccion");
@@ -85,9 +86,18 @@ public class ContralodorCandidato extends HttpServlet {
         } catch (NumberFormatException ex) {
         }
 
+        int idAprendiz = 0;
+        try {
+            idAprendiz = Integer.parseInt(idApren);
+        } catch (NumberFormatException ex) {
+        }
+
         Candidato candidato = new Candidato();
+        Aprendiz aprendiz = new Aprendiz();
+
         candidato.setIdCandidato(idCandidato);
-        candidato.setNombreCandidato(nombreCandidato);
+
+        aprendiz.setIdAprendiz(idAprendiz);
         candidato.setDescripcionCandidato(descripcionCandidato);
         candidato.setFotoCandidato(fotoCandidato);
 
