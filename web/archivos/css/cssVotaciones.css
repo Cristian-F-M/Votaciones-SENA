@@ -1,0 +1,230 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 17/09/2023, 12:09:18 p. m.
+    Author     : pirul
+*/
+
+* {
+    font-family: 'Lato', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100%;
+    /* background-color: rgb(102, 102, 102); */
+    /* background-color: gray !important; */
+    margin: 0;
+    padding: 0;
+    background-color: rgb(221, 218, 218) !important;
+}
+
+
+.main {
+    padding: 65px 15px 0px 15px;
+    margin-bottom: 20px;
+    /* height: 100%; */
+    /* background-color: rgb(221, 218, 218); */
+    /* background-image: url("fondo-2.png");
+    background-repeat: no-repeat;
+    background-size: cover; */
+}
+
+.main h1 {
+    margin: 0;
+    padding: 15px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.informacion {
+    text-align: center;
+    margin: 20px 0 20px 0;
+}
+
+.fecha {
+    margin: 35px 0 0 0;
+}
+
+.candidatos {
+    margin: 45px 0 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 380px;
+    gap: 30px 10px;
+    place-items: center;
+}
+
+.candidatos .card-candidato {
+    width: 75%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* box-shadow: 0 0 20px -5px black; */
+    position: relative;
+}
+
+.candidatos .card-candidato span {
+    position: absolute;
+    top: -4px;
+    right: -3px;
+    transform: rotate(321deg);
+    font-size: 18px;
+    font-weight: 600;
+    animation: pulse 2s infinite;
+    animation-duration: 750ms;
+    display: none;
+
+}
+
+.candidatos .card-candidato .inputRadio {
+    position: relative;
+    height: 10%;
+    width: 90%;
+}
+
+.candidatos .card-candidato .inputRadio label {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 1px solid gray;
+}
+
+.candidatos .card-candidato .inputRadio input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* opacity: 0; */
+    /* z-index: 20; */
+}
+
+.candidatos .card-candidato .inputRadio input:checked+label {
+    background-color: lightgreen;
+    border: 1px solid green;
+}
+
+.candidatos a {
+    margin: 0;
+    /* padding: 10px 0; */
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    height: 90%;
+}
+
+/* .candidatos a:hover {
+    color: darkgreen;
+    box-shadow: 0 0 20px 1px black;
+} */
+
+.candidatos a:hover span {
+    display: block;
+    /* color: darkgreen; */
+}
+
+
+.candidatos .card-candidato .foto {
+    height: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.candidatos .card-candidato .foto img {
+    width: 300px;
+    height: 100%;
+    border-radius: 10px;
+    border: 2px solid rgb(194, 194, 194);
+}
+
+.candidatos .card-candidato .nombre {
+    height: 10%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.candidatos .card-candidato .nombre h1 {
+    width: 90%;
+    margin: 0;
+    padding: 8px 5px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #a6e9a6;
+    border-radius: 10px;
+}
+
+button[value="Enviar"] {
+    float: right;
+    width: 15%;
+    height: 45px;
+    margin: 0 77px 10px 0 !important;
+    border: 0;
+    border-width: 1px 1px 5px 1px;
+    background-color: lightgreen;
+    border-style: solid;
+    border-color: green;
+    border-radius: 7px !important;
+    font-size: 22px !important;
+}
+
+button[value="Enviar"]:active {
+    /* height: 37px; */
+    transform: translateY(3px);
+    border: 1px solid darkgreen;
+}
+
+
+.pMensaje{
+    text-align: right;
+    margin: 35px 80px 0 0;
+    padding: 0;
+    color: red;
+    font-size: 20px;
+}
+
+
+@keyframes pulse {
+    0% {
+        transform: scale(1) rotate(22deg);
+    }
+
+    50% {
+        transform: scale(1.1) rotate(22deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(22deg);
+    }
+}
+
+
+
+@media (max-width: 425px) {
+    .candidatos {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 426px) and (max-width: 680px) {
+    .candidatos {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 681px) {
+    .candidatos {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
