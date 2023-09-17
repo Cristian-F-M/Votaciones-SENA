@@ -38,61 +38,20 @@
                     <p id="cuenta-regresiva"></p>
                 </div>
                 <form action="ControladorAprendiz" method="post">
+
                     <div class="candidatos">
-
-                        <c:forEach items="${Candidato.Listar(pagina)}" var="candidato">
-                            <div class="card-candidato">
-                                <a href=""><span>Saber más</span>
-                                    <div class="foto"><img src="archivos/images/Foto.jpg" alt=""></div>
-                                    <div class="nombre">
-                                        <h1>Cristian Fernando Morales Diaz</h1>
-                                    </div>
-                                </a>
-                                <div class="inputRadio">
-                                    <input id="1" name="fCandidato" type="radio">
-                                    <label for="1">Seleccionar</label>
-                                </div>
-                            </div>
-                        </c:forEach>
-
                         <div class="card-candidato">
-                            <a href=""><span>Saber más</span>
-                                <div class="foto"><img src="archivos/images/Foto.jpg" alt=""></div>
+                            <a href="#">
+                                <div class="foto">
+                                    <img src="archivos/images/Foto.jpg" alt="Foto Cristian"/>
+                                </div>
                                 <div class="nombre">
-                                    <h1>Cristian Fernando Morales Diaz</h1>
+                                    <h2>Cristian Morales</h2>
                                 </div>
                             </a>
                             <div class="inputRadio">
-                                <input id="2" name="fCandidato" type="radio">
-                                <label for="2">Seleccionar</label>
-                            </div>
-                        </div>
-
-
-                        <div class="card-candidato">
-                            <a href=""><span>Saber más</span>
-                                <div class="foto"><img src="archivos/images/Foto.jpg" alt=""></div>
-                                <div class="nombre">
-                                    <h1>Cristian Fernando Morales Diaz</h1>
-                                </div>
-                            </a>
-                            <div class="inputRadio">
-                                <input id="3" name="fCandidato" type="radio">
-                                <label for="3">Seleccionar</label>
-                            </div>
-                        </div>
-
-
-                        <div class="card-candidato">
-                            <a href=""><span>Saber más</span>
-                                <div class="foto"><img src="archivos/images/Foto.jpg" alt=""></div>
-                                <div class="nombre">
-                                    <h1>Cristian Fernando Morales Diaz</h1>
-                                </div>
-                            </a>
-                            <div class="inputRadio">
-                                <input id="4" name="fCandidato" type="radio">
-                                <label for="4">Seleccionar</label>
+                                <input id="1" type="radio" name="fCandidato" value="1">
+                                <label for="1">Seleccionar</label>
                             </div>
                         </div>
                     </div>
