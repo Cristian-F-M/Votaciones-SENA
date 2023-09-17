@@ -9,7 +9,7 @@
     <ul>
         <li><a href="ControladorMenu?opcion=Home">Inicio</a></li>
         <li><a href="ControladorMenu?opcion=Representante">Representante</a></li>
-        <li><a href="ControladorMenu?opcion=Votaciones">Votaciones</a></li>
+        <li><a href="ControladorMenu?opcion=Votacion">Votaciones</a></li>
         <li><a href="ControladorMenu?opcion=Nosotros">Nosotros</a></li>
         <li><a href="ControladorMenu?opcion=Contacto">Contacto</a></li>
     </ul>

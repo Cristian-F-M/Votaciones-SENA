@@ -57,8 +57,8 @@ public class ControladorMenu extends HttpServlet {
                 request.getRequestDispatcher("infoReprensentante.jsp").forward(request, response);
                 break;
 
-            case "Votaciones":
-                request.getRequestDispatcher("votaciones.jsp").forward(request, response);
+            case "Votacion":
+                request.getRequestDispatcher("WEB-INF/Votacion.jsp").forward(request, response);
                 break;
 
             case "Nosotros":
