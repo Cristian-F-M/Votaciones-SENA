@@ -4,20 +4,20 @@
  */
 //function PopUp() {
 //
-//    var mensaje = '<%= request.getParameter("mensaje") %>';
+//    var mensaje = document.querySelector(".");
 //    console.log(mensaje);
 //    if (mensaje !== "null") {
 //        console.log(mensaje);
 //        alert(mensaje);
-//        function IniciaNotificacion() {
-//            const notificacion = new Notification(
-//                    'Ha iniciado la votación',
-//                    {
-//                        body: 'Para este año 2023 vota por tu candidato a representante',
-//                        icon: 'logo-SENA.png'
-//                    }
-//            );
-//        }
+////        function IniciaNotificacion() {
+////            const notificacion = new Notification(
+////                    'Ha iniciado la votación',
+////                    {
+////                        body: 'Para este año 2023 vota por tu candidato a representante',
+////                        icon: 'logo-SENA.png'
+////                    }
+////            );
+////        }
 //    }
 //}
 

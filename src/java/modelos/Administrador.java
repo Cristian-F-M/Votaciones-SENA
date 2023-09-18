@@ -149,9 +149,9 @@ public class Administrador {
             }
         } catch (SQLException ex) {
             System.err.println("Error al listar administradores --- " + ex.getLocalizedMessage());
+        } finally {
+            conexion.Desconectar();
         }
-
-        conexion.Desconectar();
         return administradores;
     }
 
@@ -168,9 +168,9 @@ public class Administrador {
             }
         } catch (SQLException ex) {
             System.err.println("Error al insertar administrador --- " + ex.getLocalizedMessage());
+        } finally {
+            conexion.Desconectar();
         }
-
-        conexion.Desconectar();
     }
 
     public void Modificar() {
@@ -179,7 +179,7 @@ public class Administrador {
 
         try {
             int filas = st.executeUpdate("UPDATE administrador SET nombreAdministrador = '" + getNombreAdministrador() + "', tipoDocumentoAdministrador = " + getTipoDocumentoAdministrador() + ", documentoAdministrador = " + getDocumentoAdministrador() + ", correoAdministrador = " + getCorreoAdministrador() + ", contraseñaAdministrador = " + getContraseñaAdministrador() + ", rolAdministrador = " + getRolAdministrador() + "WHERE idAdministrador =" + getIdAdministrador());
-            if(filas > 0){
+            if (filas > 0) {
                 Auditoria auditoria = new Auditoria();
                 auditoria.InsertarAuditoria("Administrador Modificado", "Owner");
             }
@@ -194,13 +194,16 @@ public class Administrador {
 
         try {
             int filas = st.executeUpdate("DELETE FROM administrador WHERE idAdministrador =" + getIdAdministrador());
-            if(filas > 0){
+            if (filas > 0) {
                 Auditoria auditoria = new Auditoria();
                 auditoria.InsertarAuditoria("Administrador Eliminado", "Owner");
             }
         } catch (SQLException ex) {
             System.err.println("Error al eliminar administrador --- " + ex.getLocalizedMessage());
+        } finally {
+            conexion.Desconectar();
         }
+
     }
 
     public int cantidadPaginas() {
@@ -214,30 +217,25 @@ public class Administrador {
             }
         } catch (SQLException ex) {
             System.err.println("Error al obtener cantidad paginas adminitrador ---" + ex.getLocalizedMessage());
+        } finally {
+            conexion.Desconectar();
         }
+
         return cantidadBloques;
     }
 
-//    public void InsertarAuditoria(String accion, String usuario) {
-//        Conexion conexion = new Conexion();
-//        Statement st = conexion.Conectar();
-//
-//        try {
-//            st.executeUpdate("INSERT INTO auditoria VALUES(null, " + accion + ", " + usuario + ", NOW())");
-//        } catch (SQLException ex) {
-//            System.err.println("Error al insertar auditoria --- " + ex.getLocalizedMessage());
-//        }
-//    }
-    
-    public void AutoIncrement(){
+    public void AutoIncrement() {
         Conexion conexion = new Conexion();
         Statement st = conexion.Conectar();
-        
-        try{
+
+        try {
             st.executeUpdate("ALTER TABLE " + this.getClass().getSimpleName() + " AUTO_INCREMENT = 0");
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             System.err.println("Error al auto incrementar auditoria --- " + ex.getLocalizedMessage());
+        } finally {
+            conexion.Desconectar();
         }
+
     }
 
 }

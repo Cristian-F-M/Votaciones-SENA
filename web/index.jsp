@@ -64,6 +64,6 @@
                 </div>
             </div>
         <jsp:include page="WEB-INF/jspf/footer.jsp"></jsp:include>
-        <script src="archivos/js/jsRegistrar.js"></script>
+<!--        <script src="archivos/js/jsRegistrar.js"></script>-->
     </body>
 </html>

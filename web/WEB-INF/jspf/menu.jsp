@@ -2,6 +2,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <head>
     <link rel="stylesheet" href="archivos/css/cssMenu.css"/>
+    <link rel="stylesheet" href="archivos/icons/icons/bootstrap-icons.css"/>
 </head>
 <header>
     <div class="img"><img src="archivos/images/logo-SENA.jpg" alt="Logo del sena"></div> 
@@ -67,7 +68,13 @@
             var opcionInicio = document.querySelector('a[href="ControladorMenu?opcion=Contacto"]');
             header.style.backgroundColor = "rgb(73 72 72)";
             opcionInicio.style.borderBottom = "2px solid white";
-            console.log(header);
+            break;
+            
+            
+        case "Votaciones":
+            var header = document.querySelector("header");
+            var opcionInicio = document.querySelector('a[href="ControladorMenu?opcion=Votacion"]');
+            opcionInicio.style.borderBottom = "2px solid white";
             break;
 
     }

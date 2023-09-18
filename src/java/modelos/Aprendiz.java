@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
@@ -16,7 +17,7 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 public class Aprendiz {
 
-    private int idAprendiz;
+    private Integer idAprendiz;
     private String nombreAprendiz;
     private int tipoDocumentoAprendiz;
     private String documentoAprendiz;
@@ -26,7 +27,7 @@ public class Aprendiz {
     private static Aprendiz aprendizIniciado;
     private int paginacion = 10;
 
-    public int getIdAprendiz() {
+    public Integer getIdAprendiz() {
         return idAprendiz;
     }
 
@@ -100,7 +101,7 @@ public class Aprendiz {
 
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 7;
         return hash;
     }
 
@@ -116,7 +117,7 @@ public class Aprendiz {
             return false;
         }
         final Aprendiz other = (Aprendiz) obj;
-        return this.idAprendiz == other.idAprendiz;
+        return Objects.equals(this.idAprendiz, other.idAprendiz);
     }
 
     @Override
@@ -231,6 +232,10 @@ public class Aprendiz {
                     Aprendiz aprendiz = new Aprendiz();
                     aprendiz.setIdAprendiz(rs.getInt("idAprendiz"));
                     aprendiz.setNombreAprendiz(rs.getString("nombreAprendiz"));
+                    aprendiz.setTipoDocumentoAprendiz(rs.getInt("tipoDocumentoAprendiz"));
+                    aprendiz.setDocumentoAprendiz(rs.getString("documentoAprendiz"));
+                    aprendiz.setCorreoAprendiz(rs.getString("correoAprendiz"));
+                    aprendiz.setCandidato(rs.getInt("candidato"));
                     Aprendiz.setAprendizIniciado(aprendiz);
                     return true;
                 }
@@ -290,12 +295,11 @@ public class Aprendiz {
 
         return false;
     }
-    
-    
+
     public boolean verificarCorreo() {
         Conexion conexion = new Conexion();
         Statement st = conexion.Conectar();
-        String sql = "SELECT * FROM aprendiz WHERE correoAprendiz LIKE '" + getCorreoAprendiz()+ "'";
+        String sql = "SELECT * FROM aprendiz WHERE correoAprendiz LIKE '" + getCorreoAprendiz() + "'";
         try {
             ResultSet rs = st.executeQuery(sql);
             return rs.next();
@@ -307,4 +311,38 @@ public class Aprendiz {
 
         return false;
     }
+
+    public void Votar() {
+        Conexion conexion = new Conexion();
+        Statement st = conexion.Conectar();
+        String sql = "UPDATE aprendiz SET candidato = " + getCandidato() + " WHERE idAprendiz = " + aprendizIniciado.getIdAprendiz();
+
+        try {
+            st.executeUpdate(sql);
+        } catch (SQLException ex) {
+            System.err.println("Error al votar --- " + ex);
+        } finally {
+            conexion.Desconectar();
+        }
+    }
+
+    public int verificarVoto(int idAprendiz) {
+        Conexion conexion = new Conexion();
+        Statement st = conexion.Conectar();
+
+        String sql = "SELECT * FROM aprendiz WHERE idAprendiz = " + idAprendiz;
+
+        try {
+            ResultSet rs = st.executeQuery(sql);
+            return rs.getInt("candidato");
+        } catch (SQLException ex) {
+            System.err.println("Error al verificar el voto --- " + ex);
+        } finally {
+            conexion.Desconectar();
+        }
+
+        return 0;
+
+    }
+
 }

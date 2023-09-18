@@ -3,37 +3,50 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/javascript.js to edit this template
  */
 
-//Funcion para que se muestre el mensaje que viene del controlador
-function PopUp() {
-    var mensaje = 'request';
-    if (mensaje !== "null") {
-        var BTNPopUp = document.getElementById("BTNPopUp");
-        BTNPopUp.click();
-    }
-}
-
-
 //Declaracion de variables 
 var boton = document.querySelector("button[value=Enviar]");
-var BTNModal = document.getElementById("BTNModal");
+var BTNModal = document.getElementById("BTNPopUp");
 
 
 //Cuando se haga click en el boton se hace una funcion y se detiene la accion default del boton
 boton.addEventListener('click', (evt) => {
     var inputsRadio = document.querySelectorAll("input[name=fCandidato]");
 
-    console.log(inputsRadio);
     for (let i = 0; i < inputsRadio.length; i++) {
+
 //if para saber si hay alguno seleccionado   
 //Si es así se despliega una ventana emergente con la verificacion
         var input = inputsRadio[i];
-        if (input.checked) {
-            var espacio = input.closest(".card-candidato");
-            var h2 = espacio.querySelector("a .nombre h2");
-            document.querySelector(".modal-body").innerHTML = `Vas a votar por <strong>${h2.textContent}</strong> confirmar voto?`;
-            BTNModal.click();
 
-            document.querySelector(".pMensaje").innerHTML = "";
+        if (input.checked) {
+//            console.log(input);
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    if (xhr.responseText === "true") {
+
+                        var espacio = input.closest(".card-candidato");
+                        var h2 = espacio.querySelector("a .nombre h2");
+                        document.getElementById("exampleModalLabel").innerHTML = "Confirmar voto";
+                        document.querySelector(".modal-body").innerHTML = `Vas a votar por <strong>${h2.textContent}</strong> confirmar voto?`;
+                        BTNModal.click();
+
+                        document.querySelector(".pMensaje").innerHTML = "";
+                    } else if (xhr.responseText === "false") {
+                        document.getElementById("exampleModalLabel").innerHTML = "Mensaje";
+                        document.querySelector(".modal-body").innerHTML = "Ya tu has registrado tu voto";
+//                                `;}
+                    }
+                }
+
+                xhr.open("POST", "ControladorAprendiz", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                var datos = "CRUD=votoValido";
+                xhr.send(datos);
+            };
+
+
+
             break;
             ;
         } else {
@@ -85,7 +98,8 @@ function actualizarCuentaRegresiva() {
     const diferencia = fechaFinVotacion - ahora;
     const p = document.getElementById("cuenta-regresiva");
     if (diferencia <= 0) {
-        console.log("La fecha objetivo ya ha pasado.");
+//        console.log("La fecha objetivo ya ha pasado.");
+        p.innerHTML = "La fecha objetivo ya ha pasado.";
     } else {
         const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
         const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));

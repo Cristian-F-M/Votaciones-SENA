@@ -144,6 +144,7 @@ body {
     height: 100%;
     border-radius: 10px;
     border: 2px solid rgb(194, 194, 194);
+    text-align: center
 }
 
 .candidatos .card-candidato .nombre {
@@ -154,7 +155,7 @@ body {
 }
 
 .candidatos .card-candidato .nombre h2 {
-    width: 90%;
+    width: 95%;
     margin: 0;
     padding: 8px 5px;
     font-size: 20px;

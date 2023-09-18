@@ -79,7 +79,7 @@ public class ControladorAprendiz extends HttpServlet {
         String documentoAprendiz = request.getParameter("fDocumentoAprendiz");
         String correoAprendiz = request.getParameter("fCorreoAprendiz");
         String contraseñaAprendiz = request.getParameter("fPasswordAprendiz");
-        String candidato = request.getParameter("fCandidatoAprendiz");
+        String candidato = request.getParameter("fCandidato");
         String accion = request.getParameter("CRUD");
 
         int idAprendiz = 0;
@@ -147,11 +147,15 @@ public class ControladorAprendiz extends HttpServlet {
 
             case "IniciarSesion":
                 boolean verificar = aprendiz.IniciarSesion();
+                Aprendiz aprendizIniciado = Aprendiz.getAprendizIniciado();
                 if (verificar) {
-                    Aprendiz aprendizIniciado = Aprendiz.getAprendizIniciado();
                     HttpSession session = request.getSession();
                     session.setAttribute("idAprendiz", aprendizIniciado.getIdAprendiz());
                     session.setAttribute("nombreAprendiz", aprendizIniciado.getNombreAprendiz());
+                    session.setAttribute("tipoDocumentoAprendiz", aprendizIniciado.getTipoDocumentoAprendiz());
+                    session.setAttribute("documentoAprendiz", aprendizIniciado.getDocumentoAprendiz());
+                    session.setAttribute("correoAprendiz", aprendizIniciado.getCorreoAprendiz());
+                    session.setAttribute("candidato", aprendizIniciado.getCandidato());
                     request.getRequestDispatcher("index.jsp?mensaje = " + mensaje).forward(request, response);
                 } else {
                     mensaje = "Datos de usuario invalidos";
@@ -166,14 +170,40 @@ public class ControladorAprendiz extends HttpServlet {
                 break;
 
             case "correoValido":
-                System.out.println("asd");
                 respuesta = String.valueOf(aprendiz.verificarCorreo());
                 response.setContentType("text/plain");
-                System.out.println(respuesta);
                 response.getWriter().write(respuesta);
                 break;
-                
-            default: System.out.println("No se encontro ninguna accion en el controlador");    
+
+            case "Votar":
+                HttpSession session = request.getSession();
+                System.out.println(session.getAttribute("idAprendiz"));
+                if (session.getAttribute("idAprendiz") != null) {
+                    aprendiz.Votar();
+                    mensaje = "Voto registrado";
+                    request.getRequestDispatcher("WEB-INF/Votacion.jsp?mensaje=" + mensaje).forward(request, response);
+                } else {
+                    mensaje = "Debes iniciar sesión para votar";
+                    request.getRequestDispatcher("WEB-INF/Votacion.jsp?mensaje=" + mensaje).forward(request, response);
+                }
+
+                break;
+
+            case "votoValido":
+                aprendizIniciado = Aprendiz.getAprendizIniciado();
+                int a = aprendiz.verificarVoto(aprendizIniciado.getIdAprendiz());
+
+                if (a != 0) {
+                    respuesta = "true";
+                } else {
+                    respuesta = "false";
+                }
+
+                response.setContentType("text/plain");
+                response.getWriter().write(respuesta);
+                break;
+            default:
+                System.out.println("No se encontro ninguna accion en el controlador");
         }
         processRequest(request, response);
     }
