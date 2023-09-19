@@ -12,55 +12,56 @@ var BTNModal = document.getElementById("BTNPopUp");
 //Cuando se haga click en el boton se hace una funcion y se detiene la accion default del boton
 function validarVoto(evt) {
     var diferencia = calcularDiferenciaDeTiempo(fechaFinVotacion);
-
-    if (diferencia <= 0)) {
-        alert("La votacion ya ha finalizad0\n\
-                        espera por los resultados");
-        return;
-    }
-
-
-
-    if (idAprendizIniciado !== 0) {
-        var inputsRadio = document.querySelector("input[type=radio]");
-        for (let i = 0; i < inputsRadio.length; i++) {
-            var input = inputsRadio[i];
-            if (input.checked) {
+    
+    
+    
+    
+    if (diferencia > 0) {
+        if (idAprendizIniciado !== 0) {
+            var inputsRadio = document.querySelector("input[type=radio]");
+            for (let i = 0; i < inputsRadio.length; i++) {
+                var input = inputsRadio[i];
+                if (input.checked) {
 
 
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function () {
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
 
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        if (xhr.responseText === "true") {
-                            var espacio = input.closest(".card-candidato");
-                            var h2 = espacio.querySelector("a .nombre h2");
-                            document.getElementById("exampleModalLabel").innerHTML = "Confirmar voto";
-                            document.querySelector(".modal-body").innerHTML = `Vas a votar por <strong>${h2.textContent}</strong> confirmar voto?`;
-                            BTNModal.click();
-                            document.querySelector(".pMensaje").innerHTML = "";
-                            return;
-                        } else if (xhr.responseText === "false") {
-                            evt.preventDefault();
-                            alert("Tu ya has registrado tu voto");
-                            document.querySelector(".pMensaje").innerHTML = "";
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            if (xhr.responseText === "true") {
+                                var espacio = input.closest(".card-candidato");
+                                var h2 = espacio.querySelector("a .nombre h2");
+                                document.getElementById("exampleModalLabel").innerHTML = "Confirmar voto";
+                                document.querySelector(".modal-body").innerHTML = `Vas a votar por <strong>${h2.textContent}</strong> confirmar voto?`;
+                                BTNModal.click();
+                                document.querySelector(".pMensaje").innerHTML = "";
+                                return;
+                            } else if (xhr.responseText === "false") {
+                                evt.preventDefault();
+                                alert("Tu ya has registrado tu voto");
+                                document.querySelector(".pMensaje").innerHTML = "";
+                            }
                         }
-                    }
-                };
-                xhr.open("POST", "ControladorAprendiz", true);
-                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                var datos = "CRUD=votoValido";
-                xhr.send(datos);
-                break;
+                    };
+                    xhr.open("POST", "ControladorAprendiz", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    var datos = "CRUD=votoValido";
+                    xhr.send(datos);
+                    break;
 //            };
-            } else {
-                document.querySelector(".pMensaje").innerHTML = "Selecciona a un candidato";
-                evt.preventDefault();
+                } else {
+                    document.querySelector(".pMensaje").innerHTML = "Selecciona a un candidato";
+                    evt.preventDefault();
+                }
             }
+        } else {
+            alert("Debes iniciar sesion para votar");
+            window.location.href = "ControladorMenu?opcion=IniciarSesion";
         }
     } else {
-        alert("Debes iniciar sesion para votar");
-        window.location.href = "ControladorMenu?opcion=IniciarSesion";
+        evt.preventDefault();
+        alert("La votacion ya ha finalizad0\n\
+                        espera por los resultados");
     }
 }
 ;
