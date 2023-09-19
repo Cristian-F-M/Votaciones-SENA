@@ -34,18 +34,18 @@ public class ControladorVotacion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ControladorVotacion</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ControladorVotacion at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+//        try (PrintWriter out = response.getWriter()) {
+//            /* TODO output your page here. You may use following sample code. */
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet ControladorVotacion</title>");
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet ControladorVotacion at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -75,9 +75,14 @@ public class ControladorVotacion extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        PrintWriter out = response.getWriter();
+
+        String fechaInicio = "2023-09-28";
+        String fechaFin = "2023-09-28";
+
         String id = request.getParameter("fIdVotacion");
-        String fechaInicio = request.getParameter("fFechaInicioVotacion");
-        String fechaFin = request.getParameter("fFechaFinVotacion");
+        fechaInicio = request.getParameter("fFechaInicioVotacion");
+        fechaFin = request.getParameter("fFechaFinVotacion");
         String cantVotos = request.getParameter("fCantVotosVotacion");
         String ganador = request.getParameter("fGanadorVotacion");
         String accion = request.getParameter("fAccion");
@@ -90,13 +95,17 @@ public class ControladorVotacion extends HttpServlet {
 
         Date fechaInicioVotacion = null;
         try {
-            fechaInicioVotacion = Date.valueOf(fechaInicio);
+            if (fechaInicio != null) {
+                fechaInicioVotacion = Date.valueOf(fechaInicio);
+            }
         } catch (DateTimeParseException ex) {
         }
 
         Date fechaFinVotacion = null;
         try {
-            fechaFinVotacion = Date.valueOf(fechaFin);
+            if (fechaFin != null) {
+                fechaFinVotacion = Date.valueOf(fechaFin);
+            }
         } catch (DateTimeParseException ex) {
         }
 
@@ -114,8 +123,8 @@ public class ControladorVotacion extends HttpServlet {
 
         Votacion votacion = new Votacion();
         votacion.setIdVotacion(idVotacion);
-        votacion.setFechaInicioVotacion(fechaInicioVotacion);
-        votacion.setFechaFinVotacion(fechaFinVotacion);
+//        votacion.setFechaInicioVotacion(fechaInicioVotacion);
+//        votacion.setFechaFinVotacion(fechaFinVotacion);
         votacion.setCantVotosVotacion(cantVotosVotacion);
         votacion.setGanadorVotacion(ganadorVotacion);
 
@@ -139,6 +148,17 @@ public class ControladorVotacion extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/ListarVotacion.jsp?mensaje=" + mensaje).forward(request, response);
                 break;
 
+            case "fechaVotacion":
+                Votacion unaVotacion = votacion.ListarVotacionActual();
+
+                String respuesta = String.valueOf(unaVotacion.getFechaFinVotacion());
+                response.setContentType("text/plain");
+                response.getWriter().write(respuesta);
+
+                break;
+
+            default:
+                out.println("No hay opcion en el controlador");
         }
 
         processRequest(request, response);

@@ -5,60 +5,65 @@
 
 //Declaracion de variables 
 var boton = document.querySelector("button[value=Enviar]");
+
+boton.addEventListener('submit', validarVoto);
+
 var BTNModal = document.getElementById("BTNPopUp");
-
-
 //Cuando se haga click en el boton se hace una funcion y se detiene la accion default del boton
-boton.addEventListener('click', (evt) => {
-    var inputsRadio = document.querySelectorAll("input[name=fCandidato]");
+function validarVoto(evt) {
+    var diferencia = calcularDiferenciaDeTiempo(fechaFinVotacion);
 
-    for (let i = 0; i < inputsRadio.length; i++) {
+    if (diferencia <= 0)) {
+        alert("La votacion ya ha finalizad0\n\
+                        espera por los resultados");
+        return;
+    }
 
-//if para saber si hay alguno seleccionado   
-//Si es así se despliega una ventana emergente con la verificacion
-        var input = inputsRadio[i];
 
-        if (input.checked) {
-//            console.log(input);
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    if (xhr.responseText === "true") {
 
-                        var espacio = input.closest(".card-candidato");
-                        var h2 = espacio.querySelector("a .nombre h2");
-                        document.getElementById("exampleModalLabel").innerHTML = "Confirmar voto";
-                        document.querySelector(".modal-body").innerHTML = `Vas a votar por <strong>${h2.textContent}</strong> confirmar voto?`;
-                        BTNModal.click();
+    if (idAprendizIniciado !== 0) {
+        var inputsRadio = document.querySelector("input[type=radio]");
+        for (let i = 0; i < inputsRadio.length; i++) {
+            var input = inputsRadio[i];
+            if (input.checked) {
 
-                        document.querySelector(".pMensaje").innerHTML = "";
-                    } else if (xhr.responseText === "false") {
-                        document.getElementById("exampleModalLabel").innerHTML = "Mensaje";
-                        document.querySelector(".modal-body").innerHTML = "Ya tu has registrado tu voto";
-//                                `;}
+
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        if (xhr.responseText === "true") {
+                            var espacio = input.closest(".card-candidato");
+                            var h2 = espacio.querySelector("a .nombre h2");
+                            document.getElementById("exampleModalLabel").innerHTML = "Confirmar voto";
+                            document.querySelector(".modal-body").innerHTML = `Vas a votar por <strong>${h2.textContent}</strong> confirmar voto?`;
+                            BTNModal.click();
+                            document.querySelector(".pMensaje").innerHTML = "";
+                            return;
+                        } else if (xhr.responseText === "false") {
+                            evt.preventDefault();
+                            alert("Tu ya has registrado tu voto");
+                            document.querySelector(".pMensaje").innerHTML = "";
+                        }
                     }
-                }
-
+                };
                 xhr.open("POST", "ControladorAprendiz", true);
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 var datos = "CRUD=votoValido";
                 xhr.send(datos);
-            };
-
-
-
-            break;
-            ;
-        } else {
-            document.querySelector(".pMensaje").innerHTML = "Selecciona a un candidato";
-            evt.preventDefault();
+                break;
+//            };
+            } else {
+                document.querySelector(".pMensaje").innerHTML = "Selecciona a un candidato";
+                evt.preventDefault();
+            }
         }
+    } else {
+        alert("Debes iniciar sesion para votar");
+        window.location.href = "ControladorMenu?opcion=IniciarSesion";
     }
-
-});
-
-
-
+}
+;
 //declaracion de variable
 var radios = document.querySelectorAll('input[type=radio]');
 // console.log(radios);
@@ -83,39 +88,48 @@ radios.forEach(function (radio) {
                 label.innerHTML = "Seleccionar";
             }
         });
-
     });
 });
-
 // Hacer la consulata AJAX para saber la fecha y asignarla a fechaFin Votacion ----- [falta]
-var fechaFinVotacion = new Date("2023-09-21T00:00:00");
+
+
+var fechaFinVotacion = null; // Inicialmente null
+
+var xhr = new XMLHttpRequest();
+xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        fechaFinVotacion = new Date(xhr.responseText); // Asigna la fecha obtenida de la consulta AJAX
+        actualizarCuentaRegresiva(); // Llama a la función actualizarCuentaRegresiva para comenzar la cuenta regresiva
+        validarVoto();
+    }
+};
+xhr.open("POST", "ControladorVotacion", true);
+xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+var datos = "fAccion=fechaVotacion";
+xhr.send(datos);
+function calcularDiferenciaDeTiempo(fechaFinVotacion) {
+    const ahora = new Date();
+    const diferencia = fechaFinVotacion - ahora;
+    return diferencia;
+}
 
 
 
-//Funcion para una cuenta regresiva para el fin de las votaciones
 function actualizarCuentaRegresiva() {
     const ahora = new Date();
     const diferencia = fechaFinVotacion - ahora;
     const p = document.getElementById("cuenta-regresiva");
     if (diferencia <= 0) {
-//        console.log("La fecha objetivo ya ha pasado.");
+        p.style.color = "red";
         p.innerHTML = "La fecha objetivo ya ha pasado.";
     } else {
         const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
         const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
         const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
-
         p.innerHTML = `Faltan ${dias} dias, ${horas} horas, ${minutos} minutos y ${segundos} segundos.`;
     }
 }
 
-// La funcion se ejecuta cada 1000ms (1seg)
+// Actualiza la cuenta regresiva cada segundo
 setInterval(actualizarCuentaRegresiva, 1000);
-
-// se ejecuta la funcion al inicio para ver una cuenta regresiva
-actualizarCuentaRegresiva();
-
-
-// Hace que se ejecute una función cuando se le de click a boton para enviar 
-// Hacer consulta ajax para saber 

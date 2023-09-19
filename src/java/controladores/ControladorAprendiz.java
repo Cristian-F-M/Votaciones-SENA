@@ -190,10 +190,12 @@ public class ControladorAprendiz extends HttpServlet {
                 break;
 
             case "votoValido":
-                aprendizIniciado = Aprendiz.getAprendizIniciado();
-                int a = aprendiz.verificarVoto(aprendizIniciado.getIdAprendiz());
+                session = request.getSession();
 
-                if (a != 0) {
+                int idAprendizIniciado = aprendiz.verificarVoto((int) session.getAttribute("idAprendiz"));
+
+                System.out.println(idAprendizIniciado);
+                if (idAprendizIniciado == 0) {
                     respuesta = "true";
                 } else {
                     respuesta = "false";

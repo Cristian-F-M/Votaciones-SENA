@@ -119,11 +119,9 @@
         <!-- main -->
 
         <jsp:include page="jspf/footer.jsp"></jsp:include>
-            lsñalf{sl
             <script>
                 function PopUp() {
                     var mensaje = '<%= request.getParameter("mensaje") %>';
-//                    console.log(mensaje);
                     if (mensaje !== "null") {
                         var BTNPopUp = document.getElementById("BTNPopUp");
                         document.getElementById("exampleModalLabel").innerHTML = "Mensaje";
@@ -133,32 +131,16 @@
                             document.querySelector("button[value=Votar]").style.display = "none";
                         } else if (mensaje === "Voto registrado") {
                             document.querySelector("button[value=Votar]").style.display = "none";
+                        }else{
+                            document.querySelector("button[value=Votar]").style.display = "block";
                         }
                     }
                 }
 
-
-//                var BTNVotar = document.querySelector("button[value=Votar]");
-//
-//                BTNVotar.addEventListener('submit', () => {
-//
-//                    var xhr = new XMLHttpRequest();
-//                    xhr.onreadystatechange = function () {
-//                        if (xhr.readyState === 4 && xhr.status === 200) {
-//                            if (xhr.responseText === "true") {
-//                                document.getElementById("exampleModalLabel").innerHTML = "Mensaje";
-//                                document.querySelector(".modal-body").innerHTML = "Ya tu has registrado tu voto";
-////                                `;
-//                                BTNModal.click();
-//                            }
-//                        }
-//
-//                        xhr.open("POST", "ControladorAprendiz", true);
-//                            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-//                            var datos = "CRUD=votoValido";
-//                            xhr.send(datos);
-//                    };
-//                });
+                var idAprendizIniciado = 0;
+                if ("${sessionScope.idAprendiz}" !== "") {
+                    idAprendizIniciado = "${sessionScope.idAprendiz}";
+                }
         </script>
         <script src="archivos/js/jsVotaciones.js"></script>
         <script src="archivos/js/js/bootstrap.js"></script>

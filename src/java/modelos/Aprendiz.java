@@ -334,7 +334,12 @@ public class Aprendiz {
 
         try {
             ResultSet rs = st.executeQuery(sql);
-            return rs.getInt("candidato");
+            System.out.println(sql);
+
+            if (rs.next()) {
+                System.out.println(rs.getInt("candidato"));
+                return rs.getInt("candidato");
+            }
         } catch (SQLException ex) {
             System.err.println("Error al verificar el voto --- " + ex);
         } finally {

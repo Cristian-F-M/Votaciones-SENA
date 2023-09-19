@@ -190,7 +190,6 @@ public class Votacion {
 //            System.err.println("Error al insertar auditoria --- " + ex.getLocalizedMessage());
 //        }
 //    }
-
     public void AutoIncrement() {
         Conexion conexion = new Conexion();
         Statement st = conexion.Conectar();
@@ -201,4 +200,29 @@ public class Votacion {
             System.err.println("Error al auto incrementar auditoria --- " + ex.getLocalizedMessage());
         }
     }
+
+    public Votacion ListarVotacionActual() {
+        Conexion conexion = new Conexion();
+        Statement st = conexion.Conectar();
+        Votacion votacion = new Votacion();
+        String sql = "SELECT * FROM votacion ORDER BY idVotacion DESC LIMIT 1;";
+
+        try {
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+
+                votacion.setIdVotacion(rs.getInt("idVotacion"));
+                votacion.setFechaInicioVotacion(rs.getDate("fechaInicioVotacion"));
+                votacion.setFechaFinVotacion(rs.getDate("fechaFinVotacion"));
+                votacion.setCantVotosVotacion(rs.getInt("cantVotosVotacion"));
+                votacion.setGanadorVotacion(rs.getInt("ganadorVotacion"));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error al listar votaciones --- " + ex.getLocalizedMessage());
+        }
+        conexion.Desconectar();
+        return votacion;
+    }
+
 }
