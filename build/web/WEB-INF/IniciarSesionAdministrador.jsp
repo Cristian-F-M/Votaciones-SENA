@@ -27,12 +27,6 @@
             </header>
 
             <form autocomplete="off" action="ControladorAdministrador" method="post">
-                <label for="Rol">Rol</label>
-                <select id="Rol" name="fRolAdministrador">
-                    <c:forEach items="${Rol.Listar(0)}" var="rol">
-                        <option value="${rol.idRol}">${rol.descripcionRol}</option>
-                    </c:forEach>
-                </select>
                 <label for="TipoDocumento">Tipo Documento</label>
                 <select id="TipoDocumento" name="fTipoDocumentoAdministrador">
                     <c:forEach items="${TipoDocumento.Listar(0)}" var="tipoDocumento">

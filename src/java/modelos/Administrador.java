@@ -185,6 +185,7 @@ public class Administrador {
 
             AutoIncrement();
             String sql = "INSERT INTO administrador VALUES(" + getIdAdministrador() + ",'" + getNombreAdministrador() + "', " + getTipoDocumentoAdministrador().getIdTipoDocumento() + ", '" + getDocumentoAdministrador() + "', '" + getCorreoAdministrador() + "', '" + contraseñaAdministradorHash + "', " + getRolAdministrador().getIdRol() + ")";
+//            String sql = "INSERT INTO administrador VALUES(null, 'Cristian Morales', 1, '1101752630', 'cforales.diaz@gmail.com', '" + contraseñaAdministradorHash + "', 1)";
 
             int filas = st.executeUpdate(sql);
             if (filas > 0) {
@@ -231,17 +232,19 @@ public class Administrador {
     }
 
     public boolean IniciarSesion() {
+
         Conexion conexion = new Conexion();
         Statement st = conexion.Conectar();
 
-        String sql = "SELECT * FROM " + this.getClass().getSimpleName() + " WHERE rolAdministrador = " + getRolAdministrador() + ""
-                + " AND tipoDocumentoAdministrador = " + getTipoDocumentoAdministrador() + " AND documentoAdministrador = " + getDocumentoAdministrador();
+        String sql = "SELECT * FROM " + this.getClass().getSimpleName() + " WHERE tipoDocumentoAdministrador = " + getTipoDocumentoAdministrador().getIdTipoDocumento() + " AND documentoAdministrador = '" + getDocumentoAdministrador() + "'";
         try {
             System.out.println(sql);
-            ResultSet rs = st.executeQuery("Selet * from administrador");
+            ResultSet rs = st.executeQuery(sql);
 
             if (rs.next()) {
                 String contraseñaAdmin = rs.getString("contraseñaAdministrador");
+                System.out.println(contraseñaAdmin);
+                System.out.println(getContraseñaAdministrador());
                 if (BCrypt.checkpw(getContraseñaAdministrador(), contraseñaAdmin)) {
                     Administrador administrador = new Administrador();
                     TipoDocumento tipoDocumento = new TipoDocumento();
