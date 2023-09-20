@@ -73,7 +73,7 @@ public class Rol {
         Conexion conexion = new Conexion();
         Statement st = conexion.Conectar();
         ArrayList roles = new ArrayList();
-        String sql = "SELECT * FROM " + this.getClass().getSimpleName() + " ORDER BY idRol";
+        String sql = "SELECT * FROM " + this.getClass().getSimpleName() + " ORDER BY idRol DESC";
 
         if (pagina > 0) {
             int paginacionMax = pagina * this.paginacion;

@@ -136,3 +136,5 @@ function actualizarCuentaRegresiva() {
 
 // Actualiza la cuenta regresiva cada segundo
 setInterval(actualizarCuentaRegresiva, 1000);
+
+

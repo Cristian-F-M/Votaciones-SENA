@@ -84,7 +84,6 @@ public class ControladorVotacion extends HttpServlet {
         fechaInicio = request.getParameter("fFechaInicioVotacion");
         fechaFin = request.getParameter("fFechaFinVotacion");
         String cantVotos = request.getParameter("fCantVotosVotacion");
-        String ganador = request.getParameter("fGanadorVotacion");
         String accion = request.getParameter("fAccion");
 
         int idVotacion = 0;
@@ -115,18 +114,11 @@ public class ControladorVotacion extends HttpServlet {
         } catch (NumberFormatException ex) {
         }
 
-        int ganadorVotacion = 0;
-        try {
-            ganadorVotacion = Integer.parseInt(ganador);
-        } catch (NumberFormatException ex) {
-        }
-
         Votacion votacion = new Votacion();
         votacion.setIdVotacion(idVotacion);
-//        votacion.setFechaInicioVotacion(fechaInicioVotacion);
-//        votacion.setFechaFinVotacion(fechaFinVotacion);
+        votacion.setFechaInicioVotacion(fechaInicioVotacion);
+        votacion.setFechaFinVotacion(fechaFinVotacion);
         votacion.setCantVotosVotacion(cantVotosVotacion);
-        votacion.setGanadorVotacion(ganadorVotacion);
 
         String mensaje;
         switch (accion) {
@@ -155,6 +147,16 @@ public class ControladorVotacion extends HttpServlet {
                 response.setContentType("text/plain");
                 response.getWriter().write(respuesta);
 
+                break;
+
+            case "Representante":
+                Votacion votacionActual = votacion.ListarVotacionActual();
+                respuesta = "true";
+                if (votacionActual.getGanadorVotacion() == 0) {
+                    respuesta = "false";
+                }
+                response.setContentType("text/plain");
+                response.getWriter().write(respuesta);
                 break;
 
             default:

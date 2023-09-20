@@ -9,7 +9,7 @@
     <!--<div class="img"><a href="a.html"><img src="logo-SENA.png" alt="Logo del sena"></a></div>-->
     <ul>
         <li><a href="ControladorMenu?opcion=Home">Inicio</a></li>
-        <li><a href="ControladorMenu?opcion=Representante">Representante</a></li>
+        <li><a id="Representante" href="ControladorMenu?opcion=Representante">Representante</a></li>
         <li><a href="ControladorMenu?opcion=Votacion">Votaciones</a></li>
         <li><a href="ControladorMenu?opcion=Nosotros">Nosotros</a></li>
         <li><a href="ControladorMenu?opcion=Contacto">Contacto</a></li>
@@ -56,28 +56,59 @@
 <script>
     var title = document.title;
     console.log(title);
-
     switch (title) {
         case "SENA-Votaciones":
             var opcionInicio = document.querySelector('a[href="ControladorMenu?opcion=Home"]');
             opcionInicio.style.borderBottom = "2px solid white";
             break;
-
         case "Contacto":
             var header = document.querySelector("header");
             var opcionInicio = document.querySelector('a[href="ControladorMenu?opcion=Contacto"]');
             header.style.backgroundColor = "rgb(73 72 72)";
             opcionInicio.style.borderBottom = "2px solid white";
             break;
-            
-            
         case "Votaciones":
             var header = document.querySelector("header");
             var opcionInicio = document.querySelector('a[href="ControladorMenu?opcion=Votacion"]');
             opcionInicio.style.borderBottom = "2px solid white";
             break;
 
+
+        case "Representante":
+            var header = document.querySelector("header");
+            var opcionInicio = document.querySelector('a[href="ControladorMenu?opcion=Representante"]');
+            opcionInicio.style.borderBottom = "2px solid white";
+            break;
+
+
     }
+
+//            Consulta para saber si hay representante y si no haga una alerta que diga que no se ha elegido   
+    var aRepresentante = document.getElementById("Representante");
+    aRepresentante.addEventListener('click', (evt) => {
+
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                if (xhr.responseText === "false") {
+                    evt.preventDefault();
+                    alert("Aun no hay representante elegido");
+                    return;
+                } else if (xhr.responseText === "true") {
+                    window.location.href = aRepresentante.href;
+                }
+            }
+        };
+        evt.preventDefault();
+        xhr.open("POST", "ControladorVotacion", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        var datos = "fAccion=Representante";
+        xhr.send(datos);
+
+    });
+
+
 
 </script>
 <script src="archivos/js/js/bootstrap.js"></script>

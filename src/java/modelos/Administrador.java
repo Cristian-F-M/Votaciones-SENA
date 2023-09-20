@@ -18,11 +18,13 @@ public class Administrador {
 
     private int idAdministrador;
     private String nombreAdministrador;
-    private int tipoDocumentoAdministrador;
+    private TipoDocumento tipoDocumentoAdministrador;
     private String documentoAdministrador;
     private String correoAdministrador;
+    private Rol rolAdministrador;
     private String contraseñaAdministrador;
-    private int rolAdministrador;
+    private static Administrador adminitradorIniciado;
+
     private int paginacion;
 
     public Administrador() {
@@ -44,11 +46,11 @@ public class Administrador {
         this.nombreAdministrador = nombreAdministrador;
     }
 
-    public int getTipoDocumentoAdministrador() {
+    public TipoDocumento getTipoDocumentoAdministrador() {
         return tipoDocumentoAdministrador;
     }
 
-    public void setTipoDocumentoAdministrador(int tipoDocumentoAdministrador) {
+    public void setTipoDocumentoAdministrador(TipoDocumento tipoDocumentoAdministrador) {
         this.tipoDocumentoAdministrador = tipoDocumentoAdministrador;
     }
 
@@ -73,15 +75,14 @@ public class Administrador {
     }
 
     public void setContraseñaAdministrador(String contraseñaAdministrador) {
-        String contraseñaHash = BCrypt.hashpw(contraseñaAdministrador, BCrypt.gensalt());
-        this.contraseñaAdministrador = contraseñaHash;
+        this.contraseñaAdministrador = contraseñaAdministrador;
     }
 
-    public int getRolAdministrador() {
+    public Rol getRolAdministrador() {
         return rolAdministrador;
     }
 
-    public void setRolAdministrador(int rolAdministrador) {
+    public void setRolAdministrador(Rol rolAdministrador) {
         this.rolAdministrador = rolAdministrador;
     }
 
@@ -91,6 +92,14 @@ public class Administrador {
 
     public void setPaginacion(int paginacion) {
         this.paginacion = paginacion;
+    }
+
+    public static Administrador getAdminitradorIniciado() {
+        return adminitradorIniciado;
+    }
+
+    public static void setAdminitradorIniciado(Administrador adminitradorIniciado) {
+        Administrador.adminitradorIniciado = adminitradorIniciado;
     }
 
     @Override
@@ -125,7 +134,8 @@ public class Administrador {
         ArrayList administradores = new ArrayList();
         Administrador administrador;
 
-        String sql = "SELECT * FROM administradores ORDER BY idAdministrador";
+        String sql = "SELECT * FROM administrador INNER JOIN tipoDocumento "
+                + "on tipoDocumentoAdministrador = idTipoDocumento INNER JOIN rol on rolAdministrador = idRol  ORDER BY idAdministrador";
 
         if (pagina > 0) {
             int paginacionMax = pagina * this.paginacion;
@@ -138,13 +148,24 @@ public class Administrador {
 
             while (rs.next()) {
                 administrador = new Administrador();
+                TipoDocumento tipoDocumento = new TipoDocumento();
+                Rol rol = new Rol();
+
                 administrador.setIdAdministrador(rs.getInt("idAdministrador"));
                 administrador.setNombreAdministrador(rs.getString("nombreAdministrador"));
-                administrador.setTipoDocumentoAdministrador(rs.getInt("tipoDocumentoAdministrador"));
+
+                tipoDocumento.setIdTipoDocumento(rs.getInt("tipoDocumento"));
+                tipoDocumento.setDescripcionTipoDocumento(rs.getString("descripcionTipoDocumento"));
+                administrador.setTipoDocumentoAdministrador(tipoDocumento);
+
                 administrador.setDocumentoAdministrador(rs.getString("documentoAdministrador"));
                 administrador.setCorreoAdministrador(rs.getString("correoAdministrador"));
                 administrador.setContraseñaAdministrador(rs.getString("contraseñaAdministrador"));
-                administrador.setRolAdministrador(rs.getInt("rolAdministrador"));
+
+                rol.setIdRol(rs.getInt("idRol"));
+                rol.setDescripcionRol(rs.getString("descripcionRol"));
+                administrador.setRolAdministrador(rol);
+
                 administradores.add(administrador);
             }
         } catch (SQLException ex) {
@@ -160,8 +181,12 @@ public class Administrador {
         Statement st = conexion.Conectar();
 
         try {
+            String contraseñaAdministradorHash = BCrypt.hashpw(getContraseñaAdministrador(), BCrypt.gensalt());
+
             AutoIncrement();
-            int filas = st.executeUpdate("INSERT INTO administrador VALUES(" + getIdAdministrador() + ",'" + getNombreAdministrador() + "', " + getTipoDocumentoAdministrador() + ", '" + getDocumentoAdministrador() + "', '" + getCorreoAdministrador() + "', '" + getContraseñaAdministrador() + "', " + getRolAdministrador() + ")");
+            String sql = "INSERT INTO administrador VALUES(" + getIdAdministrador() + ",'" + getNombreAdministrador() + "', " + getTipoDocumentoAdministrador().getIdTipoDocumento() + ", '" + getDocumentoAdministrador() + "', '" + getCorreoAdministrador() + "', '" + contraseñaAdministradorHash + "', " + getRolAdministrador().getIdRol() + ")";
+
+            int filas = st.executeUpdate(sql);
             if (filas > 0) {
                 Auditoria auditoria = new Auditoria();
                 auditoria.InsertarAuditoria("Administrador Insertado", "Owner");
@@ -203,7 +228,51 @@ public class Administrador {
         } finally {
             conexion.Desconectar();
         }
+    }
 
+    public boolean IniciarSesion() {
+        Conexion conexion = new Conexion();
+        Statement st = conexion.Conectar();
+
+        String sql = "SELECT * FROM " + this.getClass().getSimpleName() + " WHERE rolAdministrador = " + getRolAdministrador() + ""
+                + " AND tipoDocumentoAdministrador = " + getTipoDocumentoAdministrador() + " AND documentoAdministrador = " + getDocumentoAdministrador();
+        try {
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                String contraseñaAdmin = rs.getString("contraseñaAdministrador");
+                if (BCrypt.checkpw(getContraseñaAdministrador(), contraseñaAdmin)) {
+                    Administrador administrador = new Administrador();
+                    TipoDocumento tipoDocumento = new TipoDocumento();
+                    Rol rol = new Rol();
+
+                    administrador.setIdAdministrador(rs.getInt("idAdministrador"));
+                    administrador.setNombreAdministrador(rs.getString("nombreAdministrador"));
+
+                    tipoDocumento.setIdTipoDocumento(rs.getInt("tipoDocumento"));
+                    tipoDocumento.setDescripcionTipoDocumento(rs.getString("descripcionTipoDocumento"));
+                    administrador.setTipoDocumentoAdministrador(tipoDocumento);
+
+                    administrador.setDocumentoAdministrador(rs.getString("documentoAdministrador"));
+                    administrador.setCorreoAdministrador(rs.getString("correoAdministrador"));
+
+                    rol.setIdRol(rs.getInt("idRol"));
+                    rol.setDescripcionRol(rs.getString("descripcionRol"));
+                    administrador.setRolAdministrador(rol);
+
+                    administrador.setContraseñaAdministrador(rs.getString("contraseñaAdministrador"));
+
+                    Administrador.setAdminitradorIniciado(administrador);
+                    return true;
+                }
+            }
+
+        } catch (SQLException ex) {
+
+        } finally {
+            conexion.Desconectar();
+        }
+        return false;
     }
 
     public int cantidadPaginas() {

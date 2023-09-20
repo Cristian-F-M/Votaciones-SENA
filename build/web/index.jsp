@@ -60,10 +60,18 @@
                     </div>
                 </div>
                 <div class="card img">
-                    <img src="archivos/images/logo-SENA.jpg" alt="Logo del sena">
+                    <img id="logo" src="archivos/images/logo-SENA.jpg" alt="Logo del sena">
                 </div>
             </div>
         <jsp:include page="WEB-INF/jspf/footer.jsp"></jsp:include>
-<!--        <script src="archivos/js/jsRegistrar.js"></script>-->
+        <!--        <script src="archivos/js/jsRegistrar.js"></script>-->
+        <script>
+
+            var logo = document.getElementById("logo");
+
+            logo.addEventListener('click', () => {
+                window.location.href = "ControladorMenu?opcion=InicioAdministrador";
+            });
+        </script>
     </body>
 </html>

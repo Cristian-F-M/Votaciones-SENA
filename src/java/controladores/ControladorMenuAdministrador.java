@@ -17,9 +17,8 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author pirul
  */
-@WebServlet(name = "ControladorMenu", urlPatterns = {"/ControladorMenu"})
-
-public class ControladorMenu extends HttpServlet {
+@WebServlet(name = "ControladorMenuAdministrador", urlPatterns = {"/ControladorMenuAdministrador"})
+public class ControladorMenuAdministrador extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,52 +31,54 @@ public class ControladorMenu extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
 
         PrintWriter out = response.getWriter();
         String opcion = request.getParameter("opcion");
+
         switch (opcion) {
             case "IniciarSesion":
-                request.getRequestDispatcher("WEB-INF/IniciarSesionAprendiz.jsp").forward(request, response);
-                break;
-
-            case "Registrar":
-                request.getRequestDispatcher("WEB-INF/RegistrarAprendiz.jsp").forward(request, response);
-                break;
-
-            case "CerrarSesion":
-                HttpSession session = request.getSession();
-                session.invalidate();
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-                break;
-            case "Home":
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-                break;
-
-            case "Representante":
-                request.getRequestDispatcher("WEB-INF/Representante.jsp").forward(request, response);
-                break;
-
-            case "Votacion":
-                request.getRequestDispatcher("WEB-INF/Votacion.jsp").forward(request, response);
-                break;
-
-            case "Nosotros":
-                request.getRequestDispatcher("nosotros.jsp").forward(request, response);
-                break;
-
-            case "Contacto":
-                request.getRequestDispatcher("WEB-INF/Contacto.jsp").forward(request, response);
-                break;
-
-            case "InicioAdministrador":
                 request.getRequestDispatcher("WEB-INF/IniciarSesionAdministrador.jsp").forward(request, response);
                 break;
 
-            default:
-                out.println("No hay ninguna opcion en el controlador");
-        }
+            case "EditarPefil":
+                request.getRequestDispatcher("WEB-INF/EditarAdministrador.jsp").forward(request, response);
+                break;
 
-        response.setContentType("text/html;charset=UTF-8");
+            case "CerrarSesion":
+                HttpSession sessionAdministrador = request.getSession();
+                sessionAdministrador.invalidate();
+                request.getRequestDispatcher("WEB-INF/Administrador.jsp").forward(request, response);
+                break;
+
+            case "Inicio":
+                request.getRequestDispatcher("WEB-INF/Administrador.jsp").forward(request, response);
+                break;
+
+            case "Aprendices":
+                request.getRequestDispatcher("WEB-INF/Aprendices.jsp").forward(request, response);
+                break;
+
+            case "Candidatos":
+                request.getRequestDispatcher("WEB-INF/Candidatos.jsp").forward(request, response);
+                break;
+
+            case "Historial":
+                request.getRequestDispatcher("WEB-INF/Historial.jsp").forward(request, response);
+                break;
+
+            case "Administrador":
+                request.getRequestDispatcher("WEB-INF/Administradores.jsp").forward(request, response);
+                break;
+
+            case "Otros":
+                request.getRequestDispatcher("WEB-INF/Otros.jsp").forward(request, response);
+                break;
+
+            default:
+                out.println("No hay opción en el controlador");
+                throw new AssertionError();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -106,7 +107,6 @@ public class ControladorMenu extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         processRequest(request, response);
     }
 

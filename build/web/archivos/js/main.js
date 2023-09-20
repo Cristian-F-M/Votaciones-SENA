@@ -11,3 +11,5 @@ iPassword.addEventListener('click', () => {
     iPassword.classList.toggle("bi-eye");
     inputPasswordOculta.type = inputPasswordOculta.type === 'password' ? 'text' : 'password';
 });
+
+

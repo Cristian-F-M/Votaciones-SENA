@@ -11,7 +11,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import modelos.Administrador;
+import modelos.Rol;
+import modelos.TipoDocumento;
 
 /**
  *
@@ -73,14 +76,14 @@ public class ControladorAdministrador extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String id = request.getParameter("fidAdministrador");
-        String nombreAdministrador = request.getParameter("fidAdministrador");
-        String tipoDocumento = request.getParameter("fidAdministrador");
-        String documentoAdministrador = request.getParameter("fidAdministrador");
-        String correoAdministrador = request.getParameter("fidAdministrador");
-        String contraseñaAdministrador = request.getParameter("fidAdministrador");
-        String rol = request.getParameter("fidAdministrador");
-        String accion = request.getParameter("fAccion");
+        String id = request.getParameter("fIdAdministrador");
+        String nombreAdministrador = request.getParameter("fNombreAdmistrador");
+        String ftipoDocumento = request.getParameter("fTipoDocumentoAdministrador");
+        String documentoAdministrador = request.getParameter("fDocumentoAdministrador");
+        String correoAdministrador = request.getParameter("fCorreoAdministrador");
+        String contraseñaAdministrador = request.getParameter("fPasswordAdministrador");
+        String frol = request.getParameter("fRolAdministrador");
+        String accion = request.getParameter("CRUD");
 
         int idAdministrador = 0;
         try {
@@ -90,24 +93,32 @@ public class ControladorAdministrador extends HttpServlet {
 
         int tipoDocumentoAdministrador = 0;
         try {
-            tipoDocumentoAdministrador = Integer.parseInt(tipoDocumento);
+            tipoDocumentoAdministrador = Integer.parseInt(ftipoDocumento);
         } catch (NumberFormatException ex) {
         }
 
         int rolAdministrador = 0;
         try {
-            rolAdministrador = Integer.parseInt(rol);
+            rolAdministrador = Integer.parseInt(frol);
         } catch (NumberFormatException ex) {
         }
 
         Administrador administrador = new Administrador();
+        TipoDocumento tipoDocumento = new TipoDocumento();
+        Rol rol = new Rol();
+
         administrador.setIdAdministrador(idAdministrador);
         administrador.setNombreAdministrador(nombreAdministrador);
-        administrador.setTipoDocumentoAdministrador(tipoDocumentoAdministrador);
+
+        tipoDocumento.setIdTipoDocumento(tipoDocumentoAdministrador);
+        administrador.setTipoDocumentoAdministrador(tipoDocumento);
+
         administrador.setDocumentoAdministrador(documentoAdministrador);
         administrador.setCorreoAdministrador(correoAdministrador);
         administrador.setContraseñaAdministrador(contraseñaAdministrador);
-        administrador.setRolAdministrador(rolAdministrador);
+
+        rol.setIdRol(rolAdministrador);
+        administrador.setRolAdministrador(rol);
 
         String mensaje = "";
         switch (accion) {
@@ -127,6 +138,24 @@ public class ControladorAdministrador extends HttpServlet {
                 mensaje = "Administrador eliminado";
                 administrador.Eliminar();
                 request.getRequestDispatcher("WEB-INF/ListarAdministrador.jsp?mensaje=" + mensaje).forward(request, response);
+                break;
+
+            case "IniciarSesion":
+                boolean verificar = administrador.IniciarSesion();
+                if (verificar) {
+                    HttpSession sessionAdministrador = request.getSession();
+                    Administrador administradorIniciado = Administrador.getAdminitradorIniciado();
+//                    
+                    sessionAdministrador.setAttribute("idAdministrador", administradorIniciado.getIdAdministrador());
+                    sessionAdministrador.setAttribute("nombreAdministrador", administradorIniciado.getNombreAdministrador());
+                    sessionAdministrador.setAttribute("tipoDocumentoAdministrador", administradorIniciado.getTipoDocumentoAdministrador());
+                    sessionAdministrador.setAttribute("documentoAdministrador", administradorIniciado.getDocumentoAdministrador());
+                    sessionAdministrador.setAttribute("rolAdministrador", administradorIniciado.getRolAdministrador());
+
+                    request.getRequestDispatcher("WEB-INF/Administrador.jsp").forward(request, response);
+                } else {
+                    request.getRequestDispatcher("WEB-INF/IniciarSesionAdministrador.jsp").forward(request, response);
+                }
                 break;
         }
 
