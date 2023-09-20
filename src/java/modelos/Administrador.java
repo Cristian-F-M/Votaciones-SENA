@@ -237,7 +237,8 @@ public class Administrador {
         String sql = "SELECT * FROM " + this.getClass().getSimpleName() + " WHERE rolAdministrador = " + getRolAdministrador() + ""
                 + " AND tipoDocumentoAdministrador = " + getTipoDocumentoAdministrador() + " AND documentoAdministrador = " + getDocumentoAdministrador();
         try {
-            ResultSet rs = st.executeQuery(sql);
+            System.out.println(sql);
+            ResultSet rs = st.executeQuery("Selet * from administrador");
 
             if (rs.next()) {
                 String contraseñaAdmin = rs.getString("contraseñaAdministrador");

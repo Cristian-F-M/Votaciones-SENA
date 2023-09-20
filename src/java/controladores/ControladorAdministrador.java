@@ -118,7 +118,7 @@ public class ControladorAdministrador extends HttpServlet {
         administrador.setContraseñaAdministrador(contraseñaAdministrador);
 
         rol.setIdRol(rolAdministrador);
-        administrador.setRolAdministrador(rol);
+//        administrador.setRolAdministrador(rol);
 
         String mensaje = "";
         switch (accion) {
@@ -141,21 +141,22 @@ public class ControladorAdministrador extends HttpServlet {
                 break;
 
             case "IniciarSesion":
-                boolean verificar = administrador.IniciarSesion();
-                if (verificar) {
-                    HttpSession sessionAdministrador = request.getSession();
-                    Administrador administradorIniciado = Administrador.getAdminitradorIniciado();
-//                    
-                    sessionAdministrador.setAttribute("idAdministrador", administradorIniciado.getIdAdministrador());
-                    sessionAdministrador.setAttribute("nombreAdministrador", administradorIniciado.getNombreAdministrador());
-                    sessionAdministrador.setAttribute("tipoDocumentoAdministrador", administradorIniciado.getTipoDocumentoAdministrador());
-                    sessionAdministrador.setAttribute("documentoAdministrador", administradorIniciado.getDocumentoAdministrador());
-                    sessionAdministrador.setAttribute("rolAdministrador", administradorIniciado.getRolAdministrador());
-
-                    request.getRequestDispatcher("WEB-INF/Administrador.jsp").forward(request, response);
-                } else {
-                    request.getRequestDispatcher("WEB-INF/IniciarSesionAdministrador.jsp").forward(request, response);
-                }
+                administrador.Insertar();
+//                boolean verificar = administrador.IniciarSesion();
+//                if (verificar) {
+//                    HttpSession sessionAdministrador = request.getSession();
+//                    Administrador administradorIniciado = Administrador.getAdminitradorIniciado();
+////                    
+//                    sessionAdministrador.setAttribute("idAdministrador", administradorIniciado.getIdAdministrador());
+//                    sessionAdministrador.setAttribute("nombreAdministrador", administradorIniciado.getNombreAdministrador());
+//                    sessionAdministrador.setAttribute("tipoDocumentoAdministrador", administradorIniciado.getTipoDocumentoAdministrador());
+//                    sessionAdministrador.setAttribute("documentoAdministrador", administradorIniciado.getDocumentoAdministrador());
+//                    sessionAdministrador.setAttribute("rolAdministrador", administradorIniciado.getRolAdministrador());
+//
+//                    request.getRequestDispatcher("WEB-INF/Administrador.jsp").forward(request, response);
+//                } else {
+//                    request.getRequestDispatcher("WEB-INF/IniciarSesionAdministrador.jsp").forward(request, response);
+//                }
                 break;
         }
 

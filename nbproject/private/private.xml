@@ -3,21 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/src/java/controladores/ControladorMenu.java</file>
-            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/src/java/controladores/ControladorVotacion.java</file>
-            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/src/java/controladores/ControladorAprendiz.java</file>
-            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/WEB-INF/jspf/footer.jsp</file>
-            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/src/java/modelos/Votacion.java</file>
-            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/archivos/css/cssVotacion.css</file>
+            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/WEB-INF/Otros.jsp</file>
+            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/WEB-INF/Administrador.jsp</file>
+            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/WEB-INF/Candidatos.jsp</file>
+            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/WEB-INF/Administradores.jsp</file>
+            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/src/java/controladores/ControladorAdministrador.java</file>
+            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/src/java/controladores/ControladorMenuAdministrador.java</file>
+            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/src/java/modelos/Auditoria.java</file>
+            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/src/java/modelos/Administrador.java</file>
             <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/WEB-INF/jspf/menu.jsp</file>
-            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/archivos/css/cssRepresentante.css</file>
-            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/archivos/css/cssFooter.css</file>
-            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/archivos/css/cssFormulario.css</file>
-            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/WEB-INF/Representante.jsp</file>
-            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/WEB-INF/Votacion.jsp</file>
-            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/WEB-INF/RegistrarAprendiz.jsp</file>
-            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/src/java/modelos/Aprendiz.java</file>
-            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/archivos/js/jsVotaciones.js</file>
+            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/WEB-INF/Aprendices.jsp</file>
+            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/WEB-INF/jspf/menuAdministrador.jsp</file>
+            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/WEB-INF/IniciarSesionAdministrador.jsp</file>
+            <file>file:/C:/Users/pirul/Documents/NetBeansProjects/proyectoFormativo/web/WEB-INF/Historial.jsp</file>
         </group>
     </open-files>
 </project-private>

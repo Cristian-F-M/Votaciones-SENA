@@ -74,7 +74,6 @@
     console.log(title);
     var opcionSeleccionada;
     switch (title) {
-
         case "Votaciones":
             opcionSeleccionada = document.getElementById("Inicio");
             break;
@@ -93,7 +92,6 @@
         case "Otros":
             var opcionSeleccionada = document.getElementById("Otros");
             break;
-
     }
     opcionSeleccionada.style.borderBottom = "2px solid white";
 
