@@ -68,7 +68,6 @@
         <script>
 
             var logo = document.getElementById("logo");
-//sjdgfsdgh
             logo.addEventListener('click', () => {
                 window.location.href = "ControladorMenu?opcion=InicioAdministrador";
             });
