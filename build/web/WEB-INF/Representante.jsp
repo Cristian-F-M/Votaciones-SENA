@@ -17,7 +17,7 @@
     </head>
 
     <body>
-        <jsp:include page="jspf/menu.jsp"></jsp:include>
+        <jsp:include page="jspf/menu.jspf"></jsp:include>
             <div class="main">
                 <div class="foto-nombre">
                     <div class="foto">

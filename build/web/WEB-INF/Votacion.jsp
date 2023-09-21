@@ -28,7 +28,7 @@
     <body onload="PopUp()">
 
         <!-- Header -->
-        <jsp:include page="jspf/menu.jsp"></jsp:include>
+        <jsp:include page="jspf/menu.jspf"></jsp:include>
 
             <!-- header -->
 
