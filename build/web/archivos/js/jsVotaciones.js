@@ -137,4 +137,44 @@ function actualizarCuentaRegresiva() {
 // Actualiza la cuenta regresiva cada segundo
 setInterval(actualizarCuentaRegresiva, 1000);
 
+var cardsCandidato = document.querySelectorAll("a[id=cardCandidatos]");
+
+console.log(cardsCandidato);
+
+cardsCandidato.forEach(function (card) {
+    card.addEventListener('click', (evt) => {
+        evt.preventDefault();
+        informacionCandidato(card.getAttribute("data")).then(() => {
+            console.log("aqui?");
+        });
+    });
+
+
+});
+
+
+
+async function informacionCandidato(idCandidato) {
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log("Here");
+            console.log(JSON.parse(xhr.response));
+
+        } else {
+        }
+    };
+
+    xhr.open("POST", "ContralodorCandidato", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    var datos = JSON.stringify({
+        "CRUD": "infoCandidato",
+        "idCandidato": idCandidato
+    })
+    console.log(datos);
+    xhr.send(datos);
+
+    await new Promise(resolve => setTimeout(resolve, 800));
+}
 

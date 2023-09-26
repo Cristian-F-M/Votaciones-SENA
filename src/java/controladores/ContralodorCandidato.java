@@ -4,6 +4,7 @@
  */
 package controladores;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -78,7 +79,7 @@ public class ContralodorCandidato extends HttpServlet {
         String idApren = request.getParameter("fIdAprendiz");
         String descripcionCandidato = request.getParameter("fDescripcionCandidato");
         String fotoCandidato = request.getParameter("fFotoCandidato");
-        String accion = request.getParameter("fAccion");
+        String accion = request.getParameter("CRUD");
 
         int idCandidato = 0;
         try {
@@ -100,7 +101,7 @@ public class ContralodorCandidato extends HttpServlet {
         aprendiz.setIdAprendiz(idAprendiz);
         candidato.setDescripcionCandidato(descripcionCandidato);
         candidato.setFotoCandidato(fotoCandidato);
-
+        System.out.println("accion ---" + accion);
         String mensaje;
         switch (accion) {
             case "Registrar":
@@ -121,6 +122,22 @@ public class ContralodorCandidato extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/ListarCandidato.jsp?mensaje=" + mensaje).forward(request, response);
                 break;
 
+            case "infoCandidato":
+                int idInfoCandidato = Integer.parseInt(request.getParameter("idCandidato"));
+                System.out.println("idCandidato --- " + idInfoCandidato);
+                candidato = candidato.infoCandidato(idInfoCandidato);
+
+                Gson gson = new Gson();
+                String json = gson.toJson(candidato);
+
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+
+                response.getWriter().write(json);
+                break;
+
+            default:
+                System.out.println("No hay opción en el controlador");
         }
 
         processRequest(request, response);

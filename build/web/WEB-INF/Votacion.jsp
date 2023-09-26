@@ -52,7 +52,7 @@
                     <%--<c:when>--%>
                     <c:forEach items="${Candidato.Listar(0)}" var="candidato">
                         <div class="card-candidato">
-                            <a href="#">
+                            <a data="${candidato.idCandidato}" id="cardCandidatos" href="#">
                                 <span>Saber más</span>
                                 <div class="foto">
                                     <img src="${candidato.fotoCandidato}" alt="Foto de ${candidato.aprendiz.nombreAprendiz}"/>
