@@ -144,9 +144,17 @@ console.log(cardsCandidato);
 cardsCandidato.forEach(function (card) {
     card.addEventListener('click', (evt) => {
         evt.preventDefault();
-        informacionCandidato(card.getAttribute("data")).then(() => {
-            console.log("aqui?");
-        });
+        informacionCandidato(card.getAttribute("data"));
+        var modalbody = document.querySelector(".modal-body");
+        document.getElementById("exampleModalLabel").innerHTML = "";
+        document.getElementById("BTN-Modal").style.display = "none";
+        document.querySelector("button[value=Votar]").style.display = "none";
+        
+        modalbody.style.display = "flex";
+        modalbody.style.justifyContent = "center";
+
+        modalbody.innerHTML = "<div class='card' style='width: 18rem;'><img src='archivos/images/Foto.jpg' class='card-img-top' alt='...'><div class='card-body'><p class='card-text'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed veniam dignissimos possimus harum debitis non beatae necessitatibus ratione.</p></div></div>";
+        BTNModal.click();
     });
 
 
@@ -154,27 +162,21 @@ cardsCandidato.forEach(function (card) {
 
 
 
-async function informacionCandidato(idCandidato) {
+function informacionCandidato(idCandidato) {
 
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log("Here");
-            console.log(JSON.parse(xhr.response));
-
-        } else {
+            var candidato = JSON.parse(xhr.response);
+            console.log(candidato);
         }
     };
 
     xhr.open("POST", "ContralodorCandidato", true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    var datos = JSON.stringify({
-        "CRUD": "infoCandidato",
-        "idCandidato": idCandidato
-    })
-    console.log(datos);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    var datos = "CRUD=infoCandidato&idCandidato=" + idCandidato;
     xhr.send(datos);
 
-    await new Promise(resolve => setTimeout(resolve, 800));
+//    await new Promise(resolve => setTimeout(resolve, 800));
 }
 

@@ -4,11 +4,6 @@
     Author     : pirul
 --%>
 
-<%
-    String mensaje = request.getParameter("mensaje");
-    System.out.println(mensaje);
-   
-%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -28,7 +23,7 @@
     <body onload="PopUp()">
 
         <!-- Header -->
-        <jsp:include page="jspf/menu.jspf"></jsp:include>
+        <jsp:include page="jspf/menu.jsp"></jsp:include>
 
             <!-- header -->
 
@@ -89,7 +84,7 @@
                                 </c:if>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button id="BTN-Modal" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                 <button type="submit" class="btn btn-primary" name="CRUD" value="Votar">Confirmar</button>
                             </div>
                         </div>
@@ -100,24 +95,6 @@
         <button style="display: none;" id="BTNPopUp" type="button" class="btn btn-primary" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">
         </button>
-
-        <!-- main -->
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasRightLabel">Usuario</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <ul>
-                    <li><a href="ControladorMenu?opcion=EditarPefil">Editar perfil</a></li>
-                    <li><a href="ControladorMenu?opcion=IniciarSesion">Iniciar Sesion</a></li>
-                    <li><a href="ControladorMenu?opcion=Registrar">Registrarse</a></li>
-                    <li><a href="ControladorMenu?opcion=CerrarSesion">Cerrar sesión</a></li>
-                </ul>
-            </div>
-        </div>
-        <!-- main -->
-
         <jsp:include page="jspf/footer.jsp"></jsp:include>
             <script>
                 function PopUp() {
@@ -131,7 +108,7 @@
                             document.querySelector("button[value=Votar]").style.display = "none";
                         } else if (mensaje === "Voto registrado") {
                             document.querySelector("button[value=Votar]").style.display = "none";
-                        }else{
+                        } else {
                             document.querySelector("button[value=Votar]").style.display = "block";
                         }
                     }

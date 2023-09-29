@@ -22,7 +22,7 @@
 
     <body>
         <div class="contenedor-fondo">
-            <jsp:include page="WEB-INF/jspf/menu.jspf"></jsp:include>
+            <jsp:include page="WEB-INF/jspf/menu.jsp"></jsp:include>
                 <div class="contenedor-titulo">
                     <h1>Elecciones representantes 2023</h1>
                     <p>Centro de gestion agroempresarial del oriente</p>

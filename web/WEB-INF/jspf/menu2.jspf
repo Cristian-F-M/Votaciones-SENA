@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--any content can be specified here e.g.:--> 
 <link rel="stylesheet" href="archivos/css/cssMenu.css"/>
 <link rel="stylesheet" href="archivos/icons/icons/bootstrap-icons.css"/>
