@@ -47,7 +47,7 @@ function validarVoto() {
                         var espacio = input.closest(".card-candidato");
                         var h2 = espacio.querySelector("a .nombre h2");
                         document.getElementById("exampleModalLabel").innerHTML = "Confirmar voto";
-                        document.querySelector(".modal-body").innerHTML = `Vas a votar por <strong>${h2.textContent}</strong> confirmar voto?`;
+                        document.querySelector(".modal-body").innerHTML = `<div>Vas a votar por <strong>${h2.textContent}</strong> confirmar voto?</div>`;
                         BTNModal.click();
                         document.querySelector(".pMensaje").innerHTML = "";
                         return;
@@ -137,6 +137,7 @@ function actualizarCuentaRegresiva() {
 // Actualiza la cuenta regresiva cada segundo
 setInterval(actualizarCuentaRegresiva, 1000);
 
+
 var cardsCandidato = document.querySelectorAll("a[id=cardCandidatos]");
 
 console.log(cardsCandidato);
@@ -144,39 +145,68 @@ console.log(cardsCandidato);
 cardsCandidato.forEach(function (card) {
     card.addEventListener('click', (evt) => {
         evt.preventDefault();
-        informacionCandidato(card.getAttribute("data"));
-        var modalbody = document.querySelector(".modal-body");
-        document.getElementById("exampleModalLabel").innerHTML = "";
-        document.getElementById("BTN-Modal").style.display = "none";
-        document.querySelector("button[value=Votar]").style.display = "none";
-        
-        modalbody.style.display = "flex";
-        modalbody.style.justifyContent = "center";
+        informacionCandidato(card.getAttribute("data"))
+                .then((candidato) => {
 
-        modalbody.innerHTML = "<div class='card' style='width: 18rem;'><img src='archivos/images/Foto.jpg' class='card-img-top' alt='...'><div class='card-body'><p class='card-text'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed veniam dignissimos possimus harum debitis non beatae necessitatibus ratione.</p></div></div>";
-        BTNModal.click();
+
+
+                    var card = "<div class='card' style='width: 18rem;'>\n\
+                                    <img id='fotoCandidato' src='" + candidato.fotoCandidato + "' class='card-img-top' alt='Foto de " + candidato.aprendiz.nombreAprendiz + "'>\n\
+                                    <div class='card-body'>\n\
+                                        <p class='card-text'>" + candidato.descripcionCandidato + "</p>\n\
+                                    </div>\n\
+                                </div>\n\
+                                <div class='inputRadio'>\n\
+                                    <input data-id='" + candidato.idCandidato + "' id='" + candidato.idCandidato + "' name='fCandidato' type='radio'>\n\
+                                    <label for='" + candidato.idCandidato + "'>Seleccionar</label>\n\
+                                </div>";
+                    var modalbody = document.querySelector(".modal-body");
+                    var h1 = document.getElementById("exampleModalLabel");
+                    h1.innerHTML = candidato.aprendiz.nombreAprendiz;
+                    h1.style.textAlign = "center";
+                    h1.style.width = "100%";
+                    h1.style.padding = "0";
+                    document.getElementById("BTN-Modal").style.display = "none";
+                    document.querySelector("button[value=Votar]").style.display = "none";
+
+                    modalbody.style.display = "flex";
+                    modalbody.style.justifyContent = "center";
+                    modalbody.innerHTML = card;
+                    BTNModal.click();
+
+                    var inputRadioPopUp = document.querySelector(".modal-body input[type='radio']");
+                    console.log(inputRadioPopUp);
+                    inputRadioPopUp.addEventListener("change", () => {
+                        console.log("juan");
+                    });
+                })
+                .catch((error) => {
+                    console.error("Error al obtener la información del candidato:", error);
+                });
     });
-
-
 });
 
-
-
 function informacionCandidato(idCandidato) {
+    return new Promise(function (resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var candidato = JSON.parse(xhr.response);
+                    resolve(candidato); // Resuelve la promesa con el valor del candidato
+                } else {
+                    reject(new Error("Error en la solicitud AJAX"));
+                }
+            }
+        };
 
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var candidato = JSON.parse(xhr.response);
-            console.log(candidato);
-        }
-    };
-
-    xhr.open("POST", "ContralodorCandidato", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    var datos = "CRUD=infoCandidato&idCandidato=" + idCandidato;
-    xhr.send(datos);
-
-//    await new Promise(resolve => setTimeout(resolve, 800));
+        xhr.open("POST", "ContralodorCandidato", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        var datos = "CRUD=infoCandidato&idCandidato=" + idCandidato;
+        xhr.send(datos);
+    });
 }
+
+
+
 

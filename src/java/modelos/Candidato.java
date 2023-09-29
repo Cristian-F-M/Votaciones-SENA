@@ -213,6 +213,8 @@ public class Candidato {
 
         } catch (SQLException ex) {
             System.err.println("Error al buscar aprendiz seleccionado --- " + ex.getLocalizedMessage());
+        } finally {
+            conexion.Desconectar();
         }
 
         Candidato candidato = new Candidato();

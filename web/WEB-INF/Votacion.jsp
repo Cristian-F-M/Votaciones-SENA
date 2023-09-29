@@ -78,7 +78,7 @@
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">¿</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body" style="display: flex; align-items: center; flex-direction:column;">
                                 <c:if test="${param.mensaje != null}">
                                     <p class="mensaje">${param.mensaje}</p>
                                 </c:if>
@@ -109,7 +109,7 @@
                         } else if (mensaje === "Voto registrado") {
                             document.querySelector("button[value=Votar]").style.display = "none";
                         } else {
-                            document.querySelector("button[value=Votar]").style.display = "block";
+//                            document.querySelector("button[value=Votar]").style.display = "block";
                         }
                     }
                 }
