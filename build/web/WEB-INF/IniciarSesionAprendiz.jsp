@@ -45,14 +45,15 @@
                 <label>Documento</label><br>
                 <input required type="type" name="fDocumentoAprendiz"><br>
                 <label>Contraseña</label><br>
-                <div class="contenedor-InputSpan">
-                    <input id="PasswordAprendiz" required type="password" name="fPasswordAprendiz">
-                    <span id="Visto"><i id="ojo" class="bi-eye-slash-fill"></i></span>
+                <input id="PasswordAprendiz" required type="password" name="fPasswordAprendiz">
+                <div class="contenedor__mostrar__password">
+                    <input id="checkbox" type="checkbox" name="name">
+                    <label for="checkbox">Mostrar contraseña</label>
                 </div>
                 <button type="submit" value="IniciarSesion" name="CRUD">Iniciar sesion</button>
                 <p class="sesion">No tiene una cuenta? <a href="ControladorMenu?opcion=Registrar">Registrese</a></p>
             </form>
         </div>
-                <script src="archivos/js/main.js"></script>
+        <script src="archivos/js/iniciarSesion.js"></script>
     </body>
 </html>

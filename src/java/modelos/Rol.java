@@ -66,7 +66,7 @@ public class Rol {
 
     @Override
     public String toString() {
-        return "Rol{" + "descripcionRol=" + descripcionRol + '}';
+        return descripcionRol;
     }
 
     public ArrayList Listar(int pagina) {

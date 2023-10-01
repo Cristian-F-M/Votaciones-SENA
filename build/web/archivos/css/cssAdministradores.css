@@ -1,0 +1,287 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 30/09/2023, 9:16:43 p. m.
+    Author     : pirul
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white !important;
+    height: 100vh;
+}
+
+.main {
+    padding: 65px 40px 0;
+    height: 90%;
+}
+
+.main .contenedor__h1 {
+    padding: 15px 0;
+}
+
+.main .contenedor__acciones {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    width: 50%;
+    height: 65px;
+}
+
+.main .contenedor__acciones .contenedor__buscar {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.main .contenedor__acciones .contenedor__buscar input {
+    width: 95%;
+    height: 35px;
+    outline: none;
+}
+
+.main .contenedor__acciones .contenedor__buscar label {
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+.contenedor__boton__registrar {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+
+.contenedor__boton__registrar button {
+    height: 35px;
+    width: 90%;
+    font-size: 18px;
+    outline: 0;
+    border: 0;
+    border-radius: .5rem;
+    color: white;
+    background-color: rgb(74, 177, 78);
+    box-shadow: 0 6px rgb(46, 122, 48);
+}
+
+
+.contenedor__boton__registrar button:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px rgb(46, 122, 48);
+}
+
+.contenedor__boton__registrar button:hover {
+    background-color: rgb(71, 194, 75);
+}
+
+.contenedor__tabla {
+    margin-top: 30px;
+    width: 50%;
+}
+
+
+.contenedor__tabla table {
+    width: 100%;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.contenedor__tabla table thead tr th,
+.contenedor__tabla table tbody tr td {
+    padding: 5px 0;
+    font-size: 18px;
+    border: 1px solid black;
+}
+
+.contenedor__tabla table thead tr th {
+    padding: 2px 2px;
+}
+
+.contenedor__tabla table thead tr th:nth-child(1) {
+    display: none;
+}
+
+.contenedor__tabla table tbody tr td:nth-child(1) {
+    display: none;
+}
+
+
+.contenedor__tabla table tbody tr td a {
+    /* text-decoration: none; */
+    color: #212529;
+}
+
+
+/* ventana */
+
+
+.contenedor__ventana {
+    position: absolute;
+    inset: 0 0 0 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0);
+    opacity: 0;
+}
+
+.contenedor__ventana.mostrar {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 1;
+}
+
+.contenedor__ventana .contenedor__pop-up {
+    background-color: white;
+    border-radius: .5rem;
+    transform: translateY(-20%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.contenedor__ventana .contenedor__pop-up.mostrar {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.contenedor__ventana .contenedor__pop-up .contenedor__cerrar {
+    display: flex;
+    justify-content: end;
+}
+
+.contenedor__ventana .contenedor__pop-up .contenedor__cerrar .BTN-close {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.contenedor__ventana .contenedor__pop-up .contenedor__cerrar .BTN-close:hover {
+    color: gray;
+}
+
+.contenedor__ventana .contenedor__pop-up .contenedor__cerrar button {
+    margin: 5px;
+}
+
+.contenedor__ventana .contenedor__pop-up .contenedor__header {
+    display: flex;
+    align-items: center;
+    margin: 0 20px;
+}
+
+.contenedor__ventana .contenedor__pop-up .contenedor__header .contenedor__h1 {
+}
+
+.contenedor__ventana .contenedor__pop-up .contenedor__header .contenedor__h1 h2 {
+    font-size: 30px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.contenedor__ventana .contenedor__pop-up .contenedor__header .contenedor__image {
+    width: 18%;
+    height: 65px;
+    margin-left: 15px;
+}
+
+.contenedor__ventana .contenedor__pop-up .contenedor__header .contenedor__image img {
+    width: 100%;
+    height: 100%;
+}
+
+.contenedor__pop-up .contenedor__body {
+    margin: 0 25px 25px;
+}
+
+.contenedor__pop-up .contenedor__body .contenedor__form {
+}
+
+
+.contenedor__pop-up .contenedor__body .contenedor__form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contenedor__pop-up .contenedor__form form label {
+    font-size: 18px;
+}
+
+.contenedor__pop-up .contenedor__form form input,
+.contenedor__pop-up .contenedor__form form select {
+    height: 30px;
+    border-radius: .3rem;
+    outline: none;
+    border: 1px solid gray;
+    margin: 1px 0px 10px 0;
+}
+
+
+.contenedor__pop-up .contenedor__form form input {
+}
+
+.contenedor__pop-up .contenedor__form form .contenedor__botones {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+#contenedor__botones button{
+    width: 47%;
+}
+
+.contenedor__pop-up .contenedor__form form .contenedor__botones button {
+    width: 30%;
+    border: 0;
+    outline: 0;
+    border-radius: 8px;
+    height: 31px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.contenedor__pop-up .contenedor__form form .contenedor__botones button[value="Eliminar"] {
+    background-color: rgb(244, 67, 54);
+    color: white;
+    box-shadow: 0 6px rgb(192, 57, 47);
+}
+
+.contenedor__pop-up .contenedor__form form .contenedor__botones button[value="Editar"] {
+    background-color: rgb(76, 175, 80);
+    color: white;
+    box-shadow: 0 6px rgb(56, 148, 59);
+}
+
+.contenedor__pop-up .contenedor__form form .contenedor__botones button[value="Cancelar"] {
+    background-color: rgb(204, 204, 204);
+    color: black;
+    box-shadow: 0 6px rgb(165, 165, 165);
+}
+
+.contenedor__pop-up .contenedor__form form .contenedor__botones button[value="Eliminar"]:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px rgb(192, 57, 47);
+}
+
+.contenedor__pop-up .contenedor__form form .contenedor__botones button[value="Editar"]:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px rgb(56, 148, 59);
+}
+
+.contenedor__pop-up .contenedor__form form .contenedor__botones button[value="Cancelar"]:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px rgb(165, 165, 165);
+}
+
+footer{
+    height: 10%;
+    margin: 0 !important;
+}

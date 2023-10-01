@@ -154,7 +154,7 @@ public class Administrador {
                 administrador.setIdAdministrador(rs.getInt("idAdministrador"));
                 administrador.setNombreAdministrador(rs.getString("nombreAdministrador"));
 
-                tipoDocumento.setIdTipoDocumento(rs.getInt("tipoDocumento"));
+                tipoDocumento.setIdTipoDocumento(rs.getInt("tipoDocumentoAdministrador"));
                 tipoDocumento.setDescripcionTipoDocumento(rs.getString("descripcionTipoDocumento"));
                 administrador.setTipoDocumentoAdministrador(tipoDocumento);
 
@@ -238,13 +238,13 @@ public class Administrador {
 
         String sql = "SELECT * FROM " + this.getClass().getSimpleName() + " WHERE tipoDocumentoAdministrador = " + getTipoDocumentoAdministrador().getIdTipoDocumento() + " AND documentoAdministrador = '" + getDocumentoAdministrador() + "'";
         try {
-            System.out.println(sql);
+//            System.out.println(sql);
             ResultSet rs = st.executeQuery(sql);
 
             if (rs.next()) {
                 String contraseñaAdmin = rs.getString("contraseñaAdministrador");
-                System.out.println(contraseñaAdmin);
-                System.out.println(getContraseñaAdministrador());
+//                System.out.println(contraseñaAdmin);
+//                System.out.println(getContraseñaAdministrador());
                 if (BCrypt.checkpw(getContraseñaAdministrador(), contraseñaAdmin)) {
                     Administrador administrador = new Administrador();
                     TipoDocumento tipoDocumento = new TipoDocumento();
@@ -272,11 +272,55 @@ public class Administrador {
             }
 
         } catch (SQLException ex) {
-
+//            System.err.println("Error al listar la información del administrador --- " + ex.getLocalizedMessage());
         } finally {
             conexion.Desconectar();
         }
         return false;
+    }
+
+    public Administrador infoAdministrador(int idAdministrador) {
+        Conexion conexion = new Conexion();
+        Statement st = conexion.Conectar();
+
+        Administrador administrador;
+        String sql = "SELECT idAdministrador, nombreAdministrador, idTipoDocumento, descripcionTipoDocumento, documentoAdministrador, "
+                + "correoAdministrador, idRol, descripcionRol FROM administrador INNER JOIN tipoDocumento on tipoDocumentoAdministrador = "
+                + "idTipoDocumento INNER JOIN rol on rolAdministrador = idRol WHERE idAdministrador = " + idAdministrador + "  ORDER BY idAdministrador";
+        try {
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                administrador = new Administrador();
+                TipoDocumento tipoDocumento = new TipoDocumento();
+                Rol rol = new Rol();
+
+                administrador.setIdAdministrador(rs.getInt("idAdministrador"));
+                administrador.setNombreAdministrador(rs.getString("nombreAdministrador"));
+
+                tipoDocumento.setIdTipoDocumento(rs.getInt("idTipoDocumento"));
+                tipoDocumento.setDescripcionTipoDocumento(rs.getString("descripcionTipoDocumento"));
+                administrador.setTipoDocumentoAdministrador(tipoDocumento);
+
+                administrador.setDocumentoAdministrador(rs.getString("documentoAdministrador"));
+
+                rol.setIdRol(rs.getInt("idRol"));
+                rol.setDescripcionRol(rs.getString("descripcionRol"));
+
+                administrador.setRolAdministrador(rol);
+
+                return administrador;
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error al listar la información del administrador --- " + ex.getLocalizedMessage());
+        } finally {
+            conexion.Desconectar();
+        }
+
+        administrador = new Administrador();
+        administrador.setNombreAdministrador("No hay información del administrador");
+        return administrador;
     }
 
     public int cantidadPaginas() {

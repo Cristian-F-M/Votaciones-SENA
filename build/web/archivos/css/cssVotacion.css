@@ -112,23 +112,18 @@ body {
     border: 1px solid green;
 }
 
-.candidatos a {
+.candidatos a:not([href]):not([class]) {
     margin: 0;
     /* padding: 10px 0; */
     text-decoration: none;
     color: black;
     width: 100%;
     height: 90%;
+    cursor: pointer;
 }
-
-/* .candidatos a:hover {
-    color: darkgreen;
-    box-shadow: 0 0 20px 1px black;
-} */
 
 .candidatos a:hover span {
     display: block;
-    /* color: darkgreen; */
 }
 
 
@@ -171,21 +166,19 @@ button[value="Enviar"] {
     width: 15%;
     height: 45px;
     margin: 0 77px 10px 0 !important;
-    border: 0;
-    border-width: 1px 1px 5px 1px;
-    background-color: lightgreen;
-    border-style: solid;
-    border-color: green;
-    border-radius: 7px !important;
+    border: none;
+    border-radius: 8px !important;
     font-size: 22px !important;
+    cursor: pointer;
+    box-shadow: 0 6px rgb(108, 172, 108);
+    background-color: rgb(166, 233, 166);
+    transition: transform 0.1s, box-shadow 0.1s;
 }
 
 button[value="Enviar"]:active {
-    /* height: 37px; */
-    transform: translateY(3px);
-    border: 1px solid darkgreen;
+    transform: translateY(4px);
+    box-shadow: 0 2px rgb(108, 172, 108);
 }
-
 
 .pMensaje{
     text-align: right;

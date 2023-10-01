@@ -24,16 +24,9 @@ function validarVoto() {
     for (let i = 0; i < inputsRadio.length; i++) {
         var input = inputsRadio[i];
         if (input.checked) {
-//            var espacio = input.closest(".card-candidato");
-//            var h2 = espacio.querySelector("a .nombre h2");
-//            document.getElementById("exampleModalLabel").innerHTML = "Confirmar voto";
-//            document.querySelector(".modal-body").innerHTML = `Vas a votar por <strong>${h2.textContent}</strong> confirmar voto?`;
-//            BTNModal.click();
-//            document.querySelector(".pMensaje").innerHTML = "";
             boton.addEventListener('submit', verificarVoto());
             return;
         } else {
-//            alert("Selecciona un candidato");
             document.querySelector(".pMensaje").innerHTML = "Selecciona a un candidato";
         }
 
@@ -43,7 +36,6 @@ function validarVoto() {
 
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     if (xhr.responseText === "true") {
-                        console.log(xhr.responseText);
                         var espacio = input.closest(".card-candidato");
                         var h2 = espacio.querySelector("a .nombre h2");
                         document.getElementById("exampleModalLabel").innerHTML = "Confirmar voto";
@@ -69,7 +61,9 @@ function validarVoto() {
 
 //declaracion de variable
 var radios = document.querySelectorAll('input[type=radio]');
-// console.log(radios);
+
+
+
 
 
 //se recorren los input para detectar un cambio
@@ -81,7 +75,7 @@ radios.forEach(function (radio) {
 //        si esta checked el label cambia a seleccionado
         if (radio.checked) {
             var label = document.querySelector("label[for='" + radio.id + "']");
-            // console.log(radio.id);
+
             label.innerHTML = "Selecionado";
         }
 // Recorre todos los inputs para saber si no está checked : Canbia el texto del label a seleccionar
@@ -140,7 +134,7 @@ setInterval(actualizarCuentaRegresiva, 1000);
 
 var cardsCandidato = document.querySelectorAll("a[id=cardCandidatos]");
 
-console.log(cardsCandidato);
+
 
 cardsCandidato.forEach(function (card) {
     card.addEventListener('click', (evt) => {
@@ -157,8 +151,8 @@ cardsCandidato.forEach(function (card) {
                                     </div>\n\
                                 </div>\n\
                                 <div class='inputRadio'>\n\
-                                    <input data-id='" + candidato.idCandidato + "' id='" + candidato.idCandidato + "' name='fCandidato' type='radio'>\n\
-                                    <label for='" + candidato.idCandidato + "'>Seleccionar</label>\n\
+                                    <input data-id='" + candidato.idCandidato + "' type='radio'>\n\
+                                    <label data-id='" + candidato.idCandidato + "' for='" + candidato.idCandidato + "'>Seleccionar</label>\n\
                                 </div>";
                     var modalbody = document.querySelector(".modal-body");
                     var h1 = document.getElementById("exampleModalLabel");
@@ -174,11 +168,16 @@ cardsCandidato.forEach(function (card) {
                     modalbody.innerHTML = card;
                     BTNModal.click();
 
-                    var inputRadioPopUp = document.querySelector(".modal-body input[type='radio']");
-                    console.log(inputRadioPopUp);
-                    inputRadioPopUp.addEventListener("change", () => {
-                        console.log("juan");
+                    var inputPopUp = document.querySelector(".modal-body input[type=radio]");
+                    var inputCardCandidato = document.getElementById(inputPopUp.getAttribute("data-id"));
+
+                    inputCardCandidato.addEventListener('change', () => {
+                        inputPopUp.checked = true;
+
+                        var labelPopUp = document.querySelector(".modal-body label[data-id='" + candidato.idCandidato + "']");
+                        labelPopUp.innerHTML = "Seleccionado";
                     });
+
                 })
                 .catch((error) => {
                     console.error("Error al obtener la información del candidato:", error);

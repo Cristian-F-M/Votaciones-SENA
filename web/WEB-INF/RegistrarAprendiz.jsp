@@ -40,15 +40,16 @@
                     </c:forEach>
                 </select><br>
                 <label for="DocumentoAprendiz">Documento</label><br>
-                <input required  onkeyup="verificarDocumentoAprendiz()" name="fDocumentoAprendiz" placeholder="Número de documento" id="DocumentoAprendiz" pattern="[0-9]{7,20}" type="text" title="Minimo 7 y maximo 15 digitos"><br>
+                <input onkeyup="verificarDocumentoAprendiz()" required name="fDocumentoAprendiz" placeholder="Número de documento" id="DocumentoAprendiz" pattern="[0-9]{7,20}" type="text" title="Minimo 7 y maximo 15 digitos"><br>
                 <p style="padding: 0; margin: 0; color: red;" id="pDocumento"></p>
                 <label for="CorreoAprendiz">Correo</label><br>
                 <input onkeyup="verificarCorreoAprendiz()"  required name="fCorreoAprendiz" placeholder="Correo electronico" id="CorreoAprendiz" type="email" title="correo"><br>
                 <p style="padding: 0; margin: 0; color: red;" id="pCorreo"></p>
                 <label for="PasswordAprendiz">Contraseña</label><br>
-                <div class="contenedor-InputSpan">
-                    <input required name="fPasswordAprendiz" pattern=".{8,16}" id="PasswordAprendiz" type="password" title="Entre 8 y 16 caracteres">
-                    <span id="Visto"><i id="ojo" class="bi-eye-slash-fill"></i></span>
+                <input required name="fPasswordAprendiz" pattern=".{8,16}" id="PasswordAprendiz" type="password" title="Entre 8 y 16 caracteres">
+                <div class="contenedor__mostrar__password">
+                    <input id="checkbox" type="checkbox" name="name">
+                    <label for="checkbox">Mostrar contraseña</label>
                 </div>
                 <button type="submit" name="CRUD" value="Registrar" id="Registar" >Registar</button>
                 <p class="sesion">Ya tiene una cuenta? <a href="ControladorMenu?opcion=IniciarSesion">Iniciar sesión</a></p>
@@ -85,65 +86,11 @@
                 }
             }
 
-            var pDocumento = document.getElementById("pDocumento");
-            var pCorreo = document.getElementById("pCorreo");
-            var botonRegistrar = document.getElementById("Registar");
-
-            function verificarDocumentoAprendiz() {
-                var inputDocumento = document.getElementById("DocumentoAprendiz").value;
-                if (inputDocumento.length >= 7) {
-                    var xhr = new XMLHttpRequest();
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            if (xhr.responseText === "true") {
-                                botonRegistrar.disabled = true;
-                                pDocumento.innerHTML = "N° documento no disponible";
-                            } else {
-                                botonRegistrar.disabled = false;
-                                pDocumento.innerHTML = "";
-                            }
-                        }
-                    };
-                    xhr.open("POST", "ControladorAprendiz", true);
-                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    var datos = "fDocumentoAprendiz=" + inputDocumento + "&CRUD=documentoValido";
-                    xhr.send(datos);
-                } else {
-                    if (inputDocumento.length <= 6) {
-                        pDocumento.innerHTML = "";
-                    }
-                }
-            }
-
-//            var p
-            function verificarCorreoAprendiz() {
-                var inputCorreo = document.getElementById("CorreoAprendiz");
-                if (inputCorreo.checkValidity()) {
-                    var xhr = new XMLHttpRequest();
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            if (xhr.responseText === "true") {
-                                botonRegistrar.disabled = true;
-                                pCorreo.innerHTML = "correo no disponible";
-                            } else {
-                                botonRegistrar.disabled = false;
-                                pCorreo.innerHTML = "";
-                            }
-                        }
-                    };
-                    xhr.open("POST", "ControladorAprendiz", true);
-                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    var datos = "fCorreoAprendiz=" + inputCorreo.value + "&CRUD=correoValido";
-                    xhr.send(datos);
-                } else {
-                    pCorreo.innerHTML = "";
-                }
-            }
 
 
         </script>
-        <script src="archivos/js/main.js"></script>
-        <!--<script src="archivos/js/jsRegistrar.js"></script>-->
+        <!--<script src="archivos/js/main.js"></script>-->
+        <script src="archivos/js/jsRegistrar.js"></script>
         <script src="archivos/js/js/bootstrap.js"></script>
     </body>
 </html>

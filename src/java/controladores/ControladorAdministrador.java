@@ -4,6 +4,7 @@
  */
 package controladores;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -84,8 +85,8 @@ public class ControladorAdministrador extends HttpServlet {
         String frol = request.getParameter("fRolAdministrador");
         String accion = request.getParameter("CRUD");
 
-        System.out.println("Formulario" + documentoAdministrador);
-        
+//        System.out.println("Formulario" + documentoAdministrador);
+
         int idAdministrador = 0;
         try {
             idAdministrador = Integer.parseInt(id);
@@ -104,7 +105,6 @@ public class ControladorAdministrador extends HttpServlet {
         } catch (NumberFormatException ex) {
         }
 
-        
         Administrador administrador = new Administrador();
         TipoDocumento tipoDocumento = new TipoDocumento();
         Rol rol = new Rol();
@@ -122,7 +122,7 @@ public class ControladorAdministrador extends HttpServlet {
         rol.setIdRol(rolAdministrador);
         administrador.setRolAdministrador(rol);
 
-        System.out.println("Get " + administrador.getDocumentoAdministrador());
+//        System.out.println("Get " + administrador.getDocumentoAdministrador());
         String mensaje = "";
         switch (accion) {
             case "Registrar":
@@ -146,7 +146,7 @@ public class ControladorAdministrador extends HttpServlet {
             case "IniciarSesion":
 
                 boolean verificar = administrador.IniciarSesion();
-                System.out.println(verificar);
+//                System.out.println(verificar);
 //                if (verificar) {
 //                    HttpSession sessionAdministrador = request.getSession();
 //                    Administrador administradorIniciado = Administrador.getAdminitradorIniciado();
@@ -161,6 +161,19 @@ public class ControladorAdministrador extends HttpServlet {
 //                } else {
 //                    request.getRequestDispatcher("WEB-INF/IniciarSesionAdministrador.jsp").forward(request, response);
 //                }
+                break;
+
+            case "infoAdministrador":
+                int idInfoAdministrador = Integer.parseInt(request.getParameter("idAdministrador"));
+                administrador = administrador.infoAdministrador(idInfoAdministrador);
+
+                Gson gson = new Gson();
+                String json = gson.toJson(administrador);
+
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
+
                 break;
         }
 

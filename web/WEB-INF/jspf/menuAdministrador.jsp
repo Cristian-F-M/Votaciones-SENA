@@ -21,7 +21,8 @@
         <li><a id="Candidatos" href="ControladorMenuAdministrador?opcion=Candidatos">Candidato</a></li>
         <li><a id="Historial" href="ControladorMenuAdministrador?opcion=Historial">Historial</a></li>
             <c:choose>
-                <c:when test="${sessionScope.rolAdministrador == 1}">
+                <%--<c:when test="${sessionScope.rolAdministrador == 1}">--%>
+                <c:when test="${1 == 1}">
                 <li><a id="Administradores" href="ControladorMenuAdministrador?opcion=Administrador">Administradores</a></li>
                 <li><a id="Otros" href="ControladorMenuAdministrador?opcion=Otros">Otros</a></li>
                 </c:when>
