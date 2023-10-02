@@ -34,7 +34,7 @@ function verificarDocumentoAprendiz() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 if (xhr.responseText === "true") {
                     botonRegistrar.disabled = true;
-                    pDocumento.innerHTML = "N° documento no disponible";
+                    pDocumento.innerHTML = "N. documento no disponible";
                 } else {
                     botonRegistrar.disabled = false;
                     pDocumento.innerHTML = "";
