@@ -20,7 +20,7 @@
     </head>
 
     <body>
-        <jsp:include page="jspf/menu.jspf"></jsp:include>
+        <jsp:include page="jspf/menu.jsp"></jsp:include>
         <div class="main">
             <div class="title">
                 <h1>Contacto</h1>

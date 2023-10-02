@@ -15,6 +15,14 @@ function obtenerIdDeFila(row) {
             .then((administrador) => {
 //                LLenar las cosas de el editar
                 console.log(administrador);
+                var fNombreAdministrador = document.getElementById("NombreAdministrador");
+                var fDocumentoAdministrador = document.getElementById("DocumentoAdministrador");
+                var fcorreoAdministrador = document.getElementById("CorreoAdministrador");
+                var fRolAdministrador = document.getElementById("RolAdministrador");
+                
+                
+                fNombreAdministrador.innerHTML = administrador.nombreAdministrador;
+                
             });
 }
 
