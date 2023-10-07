@@ -3,23 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/javascript.js to edit this template
  */
 
-var inputDocumento = document.getElementById("TipoDocumentoAprendiz").value;
 var botinRegistrar = document.getElementById("Registar");
+//var inputDocumento = document.getElementById("TipoDocumentoAprendiz").value;
 
 
-function documentoAprendiz() {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // Procesa la respuesta aquí
-            document.getElementById("p").innerHTML = xhr.responseText;
-        }
-    };
-    xhr.open("POST", "ControladorAprendiz", true); // Cambia "tupagina.jsp" por la URL de tu controlador o servlet
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // Establece el tipo de contenido
-    var datos = "fDocumentoAprendiz=" + inputDocumento; // Define los datos que deseas enviar
-    xhr.send(datos);
-}
+//function documentoAprendiz() {
+//    var xhr = new XMLHttpRequest();
+//    xhr.onreadystatechange = function () {
+//        if (xhr.readyState === 4 && xhr.status === 200) {
+//            // Procesa la respuesta aquí
+//            document.getElementById("p").innerHTML = xhr.responseText;
+//        }
+//    };
+//    xhr.open("POST", "ControladorAprendiz", true); // Cambia "tupagina.jsp" por la URL de tu controlador o servlet
+//    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // Establece el tipo de contenido
+//    var datos = "fDocumentoAprendiz=" + inputDocumento; // Define los datos que deseas enviar
+//    xhr.send(datos);
+//}
 
 var pDocumento = document.getElementById("pDocumento");
 var pCorreo = document.getElementById("pCorreo");

@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.time.format.DateTimeParseException;
 import modelos.Votacion;
+import java.util.ArrayList;
 
 /**
  *
@@ -141,7 +142,8 @@ public class ControladorVotacion extends HttpServlet {
                 break;
 
             case "fechaVotacion":
-                Votacion unaVotacion = votacion.ListarVotacionActual();
+                ArrayList<Votacion> Votaciones = votacion.ListarVotacionActual();
+                Votacion unaVotacion = Votaciones.get(0);
 
                 String respuesta = String.valueOf(unaVotacion.getFechaFinVotacion());
                 response.setContentType("text/plain");
@@ -150,9 +152,10 @@ public class ControladorVotacion extends HttpServlet {
                 break;
 
             case "Representante":
-                Votacion votacionActual = votacion.ListarVotacionActual();
+                ArrayList<Votacion> votacionesActuales = votacion.ListarVotacionActual();
+                Votacion votacionActual = votacionesActuales.get(0);
                 respuesta = "true";
-                if (votacionActual.getGanadorVotacion() == 0) {
+                if (votacionActual.getGanadorVotacion().getIdCandidato() == 0) {
                     respuesta = "false";
                 }
                 response.setContentType("text/plain");

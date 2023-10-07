@@ -104,16 +104,20 @@ public class Candidato {
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 candidato = new Candidato();
-                aprendiz = new Aprendiz();
+                Aprendiz unAprendiz = new Aprendiz();
+                TipoDocumento tipoDocumento = new TipoDocumento();
 
                 candidato.setIdCandidato(rs.getInt("idCandidato"));
-                aprendiz.setIdAprendiz(rs.getInt("idAprendiz"));
-                aprendiz.setNombreAprendiz(rs.getString("nombreAprendiz"));
-                aprendiz.setTipoDocumentoAprendiz(rs.getInt("tipoDocumentoAprendiz"));
-                aprendiz.setDocumentoAprendiz(rs.getString("documentoAprendiz"));
-                aprendiz.setCorreoAprendiz(rs.getString("correoAprendiz"));
+                unAprendiz.setIdAprendiz(rs.getInt("idAprendiz"));
+                unAprendiz.setNombreAprendiz(rs.getString("nombreAprendiz"));
+                
+                tipoDocumento.setIdTipoDocumento(rs.getInt("tipoDocumentoAprendiz"));
+                unAprendiz.setTipoDocumentoAprendiz(tipoDocumento);
+                
+                unAprendiz.setDocumentoAprendiz(rs.getString("documentoAprendiz"));
+                unAprendiz.setCorreoAprendiz(rs.getString("correoAprendiz"));
 
-                candidato.setAprendiz(aprendiz);
+                candidato.setAprendiz(unAprendiz);
                 candidato.setDescripcionCandidato(rs.getString("descripcionCandidato"));
                 candidato.setFotoCandidato(rs.getString("fotoCandidato"));
                 candidatos.add(candidato);

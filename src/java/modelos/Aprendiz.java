@@ -19,7 +19,7 @@ public class Aprendiz {
 
     private Integer idAprendiz;
     private String nombreAprendiz;
-    private int tipoDocumentoAprendiz;
+    private TipoDocumento tipoDocumentoAprendiz;
     private String documentoAprendiz;
     private String correoAprendiz;
     private String contraseñaAprendiz;
@@ -43,11 +43,11 @@ public class Aprendiz {
         this.nombreAprendiz = nombreAprendiz;
     }
 
-    public int getTipoDocumentoAprendiz() {
+    public TipoDocumento getTipoDocumentoAprendiz() {
         return tipoDocumentoAprendiz;
     }
 
-    public void setTipoDocumentoAprendiz(int tipoDocumentoAprendiz) {
+    public void setTipoDocumentoAprendiz(TipoDocumento tipoDocumentoAprendiz) {
         this.tipoDocumentoAprendiz = tipoDocumentoAprendiz;
     }
 
@@ -129,7 +129,7 @@ public class Aprendiz {
         Conexion conexion = new Conexion();
         Statement st = conexion.Conectar();
         ArrayList aprendices = new ArrayList();
-        String sql = "SELECT * FROM " + this.getClass().getSimpleName() + " ORDER BY idAprendiz";
+        String sql = "SELECT * FROM " + this.getClass().getSimpleName() + "  INNER JOIN tipoDocumento on tipoDocumento = idTipoDocumento  ORDER BY idAprendiz";
 
         if (pagina < 0) {
             int paginacionMax = pagina * this.paginacion;
@@ -141,9 +141,13 @@ public class Aprendiz {
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 Aprendiz aprendiz = new Aprendiz();
+                TipoDocumento tipoDocumento = new TipoDocumento();
+
                 aprendiz.setIdAprendiz(rs.getInt("idAprendiz"));
                 aprendiz.setNombreAprendiz(rs.getString("nombreAprendiz"));
-                aprendiz.setTipoDocumentoAprendiz(rs.getInt("tipoDocumentoAprendiz"));
+                tipoDocumento.setIdTipoDocumento(rs.getInt("idTipoDocumento"));
+                tipoDocumento.setDescripcionTipoDocumento(rs.getString("descripcionTipoDocumento"));
+                aprendiz.setTipoDocumentoAprendiz(tipoDocumento);
                 aprendiz.setDocumentoAprendiz(rs.getString("documentoAprendiz"));
                 aprendiz.setCorreoAprendiz(rs.getString("correoAprendiz"));
                 aprendiz.setContraseñaAprendiz(rs.getString("contraseñaAprendiz"));
@@ -164,7 +168,7 @@ public class Aprendiz {
         String contraseñaHashAprendiz = BCrypt.hashpw(contraseñaAprendiz, BCrypt.gensalt());
         try {
             AutoIncrement();
-            int filas = st.executeUpdate("INSERT INTO Aprendiz VALUES(NULL,'" + this.getNombreAprendiz() + "'," + this.getTipoDocumentoAprendiz() + ", '" + this.getDocumentoAprendiz() + "', '" + this.getCorreoAprendiz() + "','" + contraseñaHashAprendiz + "', null)");
+            int filas = st.executeUpdate("INSERT INTO Aprendiz VALUES(NULL,'" + this.getNombreAprendiz() + "'," + this.getTipoDocumentoAprendiz().getIdTipoDocumento() + ", '" + this.getDocumentoAprendiz() + "', '" + this.getCorreoAprendiz() + "','" + contraseñaHashAprendiz + "', null)");
             if (filas > 0) {
                 Auditoria auditoria = new Auditoria();
                 auditoria.InsertarAuditoria("Aprendiz Insertado", "Aprendiz");
@@ -181,7 +185,7 @@ public class Aprendiz {
         Conexion conexion = new Conexion();
         Statement st = conexion.Conectar();
         try {
-            int filas = st.executeUpdate("UPDATE Aprendiz SET nombreAprendiz ='" + getNombreAprendiz() + "', tipoDocumentoAprendiz  ='" + getTipoDocumentoAprendiz() + "', documentoAprendiz ='" + getDocumentoAprendiz() + "', contraseñaAprendiz ='" + getContraseñaAprendiz() + "' WHERE idAprendiz = " + getIdAprendiz());
+            int filas = st.executeUpdate("UPDATE Aprendiz SET nombreAprendiz ='" + getNombreAprendiz() + "', tipoDocumentoAprendiz  ='" + getTipoDocumentoAprendiz().getIdTipoDocumento() + "', documentoAprendiz ='" + getDocumentoAprendiz() + "', contraseñaAprendiz ='" + getContraseñaAprendiz() + "' WHERE idAprendiz = " + getIdAprendiz());
             if (filas > 0) {
                 Auditoria auditoria = new Auditoria();
                 auditoria.InsertarAuditoria("Aprendiz modificado", getNombreAprendiz());
@@ -213,9 +217,8 @@ public class Aprendiz {
     public boolean IniciarSesion() {
         Conexion conexion = new Conexion();
         Statement st = conexion.Conectar();
-        String sql = "SELECT * FROM aprendiz WHERE tipoDocumentoAprendiz = " + getTipoDocumentoAprendiz() + " AND documentoAprendiz = '" + getDocumentoAprendiz() + "'";
+        String sql = "SELECT * FROM aprendiz INNER JOIN tipoDocumento on tipoDocumentoAprendiz = idTipoDocumento WHERE tipoDocumentoAprendiz = " + getTipoDocumentoAprendiz().getIdTipoDocumento() + " AND documentoAprendiz = '" + getDocumentoAprendiz() + "'";
         try {
-            System.out.println(sql);
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
                 String contraseña = rs.getString("contraseñaAprendiz");
@@ -230,9 +233,12 @@ public class Aprendiz {
 //Fin de prueba de SQL-injection
                 if (BCrypt.checkpw(getContraseñaAprendiz(), contraseña)) {
                     Aprendiz aprendiz = new Aprendiz();
+                    TipoDocumento tipoDocumento = new TipoDocumento();
                     aprendiz.setIdAprendiz(rs.getInt("idAprendiz"));
                     aprendiz.setNombreAprendiz(rs.getString("nombreAprendiz"));
-                    aprendiz.setTipoDocumentoAprendiz(rs.getInt("tipoDocumentoAprendiz"));
+                    tipoDocumento.setIdTipoDocumento(rs.getInt("idTipoDocumento"));
+                    tipoDocumento.setDescripcionTipoDocumento(rs.getString("descripcionTipoDocumento"));
+                    aprendiz.setTipoDocumentoAprendiz(tipoDocumento);
                     aprendiz.setDocumentoAprendiz(rs.getString("documentoAprendiz"));
                     aprendiz.setCorreoAprendiz(rs.getString("correoAprendiz"));
                     aprendiz.setCandidato(rs.getInt("candidato"));

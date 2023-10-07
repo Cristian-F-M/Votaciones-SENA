@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import modelos.Aprendiz;
+import modelos.TipoDocumento;
 
 /**
  *
@@ -104,9 +105,14 @@ public class ControladorAprendiz extends HttpServlet {
         }
 
         Aprendiz aprendiz = new Aprendiz();
+        TipoDocumento unTipoDocumento = new TipoDocumento();
+        
         aprendiz.setIdAprendiz(idAprendiz);
         aprendiz.setNombreAprendiz(nombreAprendiz);
-        aprendiz.setTipoDocumentoAprendiz(tipoDocumentoAprendiz);
+        
+        unTipoDocumento.setIdTipoDocumento(tipoDocumentoAprendiz);
+        aprendiz.setTipoDocumentoAprendiz(unTipoDocumento);
+        
         aprendiz.setDocumentoAprendiz(documentoAprendiz);
         aprendiz.setCorreoAprendiz(correoAprendiz);
         aprendiz.setContraseñaAprendiz(contraseñaAprendiz);

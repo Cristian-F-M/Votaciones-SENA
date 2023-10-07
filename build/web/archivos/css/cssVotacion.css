@@ -173,6 +173,7 @@ button[value="Enviar"] {
     box-shadow: 0 6px rgb(108, 172, 108);
     background-color: rgb(166, 233, 166);
     transition: transform 0.1s, box-shadow 0.1s;
+    color: black;
 }
 
 button[value="Enviar"]:active {

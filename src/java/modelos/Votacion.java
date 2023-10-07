@@ -20,7 +20,7 @@ public class Votacion {
     private Date fechaInicioVotacion;
     private Date fechaFinVotacion;
     private int cantVotosVotacion;
-    private int ganadorVotacion;
+    private Candidato ganadorVotacion;
     private int paginacion = 10;
 
     public int getIdVotacion() {
@@ -55,20 +55,12 @@ public class Votacion {
         this.cantVotosVotacion = cantVotosVotacion;
     }
 
-    public int getGanadorVotacion() {
+    public Candidato getGanadorVotacion() {
         return ganadorVotacion;
     }
 
-    public void setGanadorVotacion(int ganadorVotacion) {
+    public void setGanadorVotacion(Candidato ganadorVotacion) {
         this.ganadorVotacion = ganadorVotacion;
-    }
-
-    public int getPaginacion() {
-        return paginacion;
-    }
-
-    public void setPaginacion(int paginacion) {
-        this.paginacion = paginacion;
     }
 
     @Override
@@ -97,12 +89,13 @@ public class Votacion {
         return "Votacion{" + "fechaInicioVotacion=" + fechaInicioVotacion + '}';
     }
 
-    public ArrayList Listar(int pagina) {
+    public ArrayList<Votacion> Listar(int pagina) {
         Conexion conexion = new Conexion();
         Statement st = conexion.Conectar();
         ArrayList votaciones = new ArrayList();
         Votacion votacion;
-        String sql = "SELECT * FROM " + this.getClass().getSimpleName() + "ORDER BY idVotacion";
+        String sql = "SELECT * FROM votacion INNER JOIN candidato on ganadorVotacion = idCandidato INNER JOIN "
+                + "aprendiz on aprendiz = idAprendiz";
 
         if (pagina > 0) {
             int paginacionMax = pagina * this.paginacion;
@@ -115,12 +108,26 @@ public class Votacion {
 
             while (rs.next()) {
                 votacion = new Votacion();
+                Candidato candidato = new Candidato();
+                Aprendiz aprendiz = new Aprendiz();
 
                 votacion.setIdVotacion(rs.getInt("idVotacion"));
                 votacion.setFechaInicioVotacion(rs.getDate("fechaInicioVotacion"));
                 votacion.setFechaFinVotacion(rs.getDate("fechaFinVotacion"));
                 votacion.setCantVotosVotacion(rs.getInt("cantVotosVotacion"));
-                votacion.setGanadorVotacion(rs.getInt("ganadorVotacion"));
+
+                candidato.setIdCandidato(rs.getInt("idCandidato"));
+                candidato.setDescripcionCandidato(rs.getString("descripcionCandidato"));
+                candidato.setFotoCandidato(rs.getString("fotoCandidato"));
+
+                aprendiz.setIdAprendiz(rs.getInt("idAprendiz"));
+                aprendiz.setNombreAprendiz(rs.getString("nombreAprendiz"));
+
+                aprendiz.setDocumentoAprendiz(rs.getString("documentoAprendiz"));
+                aprendiz.setCorreoAprendiz(rs.getString("correoAprendiz"));
+                candidato.setAprendiz(aprendiz);
+                votacion.setGanadorVotacion(candidato);
+
                 votaciones.add(votacion);
             }
         } catch (SQLException ex) {
@@ -201,28 +208,64 @@ public class Votacion {
         }
     }
 
-    public Votacion ListarVotacionActual() {
+    public ArrayList<Votacion> ListarVotacionActual() {
         Conexion conexion = new Conexion();
         Statement st = conexion.Conectar();
-        Votacion votacion = new Votacion();
-        String sql = "SELECT * FROM votacion ORDER BY idVotacion DESC LIMIT 1;";
 
+        String sql = "SELECT * FROM votacion LEFT JOIN candidato ON votacion.ganadorVotacion = candidato.idCandidato LEFT JOIN aprendiz ON "
+                + "candidato.aprendiz = aprendiz.idAprendiz WHERE votacion.idVotacion = (SELECT MAX(idVotacion) FROM votacion)";
+
+        ArrayList<Votacion> votaciones = new ArrayList<>();
         try {
             ResultSet rs = st.executeQuery(sql);
 
-            if (rs.next()) {
+            while (rs.next()) {
+                Votacion votacion = new Votacion();
+                Candidato candidato = new Candidato();
+                Aprendiz aprendiz = new Aprendiz();
 
                 votacion.setIdVotacion(rs.getInt("idVotacion"));
                 votacion.setFechaInicioVotacion(rs.getDate("fechaInicioVotacion"));
                 votacion.setFechaFinVotacion(rs.getDate("fechaFinVotacion"));
                 votacion.setCantVotosVotacion(rs.getInt("cantVotosVotacion"));
-                votacion.setGanadorVotacion(rs.getInt("ganadorVotacion"));
+
+                candidato.setIdCandidato(rs.getInt("idCandidato"));
+                candidato.setDescripcionCandidato(rs.getString("descripcionCandidato"));
+                candidato.setFotoCandidato(rs.getString("fotoCandidato"));
+
+                aprendiz.setIdAprendiz(rs.getInt("idAprendiz"));
+                aprendiz.setNombreAprendiz(rs.getString("nombreAprendiz"));
+                aprendiz.setDocumentoAprendiz(rs.getString("documentoAprendiz"));
+                aprendiz.setCorreoAprendiz(rs.getString("correoAprendiz"));
+
+                candidato.setAprendiz(aprendiz);
+
+                votacion.setGanadorVotacion(candidato);
+
+                votaciones.add(votacion);
+
             }
         } catch (SQLException ex) {
-            System.err.println("Error al listar votaciones --- " + ex.getLocalizedMessage());
+            System.err.println("Error al listar votacion actual --- " + ex.getLocalizedMessage());
         }
+
+        if (votaciones.isEmpty()) {
+            Votacion votacion = new Votacion();
+            Candidato candidato = new Candidato();
+            Aprendiz aprendiz = new Aprendiz();
+
+            aprendiz.setNombreAprendiz("No hay representante");
+
+            candidato.setAprendiz(aprendiz);
+            
+            
+            votacion.setGanadorVotacion(candidato);
+
+            votaciones.add(votacion);
+        }
+
         conexion.Desconectar();
-        return votacion;
+        return votaciones;
     }
 
 }
