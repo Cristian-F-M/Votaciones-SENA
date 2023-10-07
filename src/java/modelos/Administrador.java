@@ -204,7 +204,12 @@ public class Administrador {
         Statement st = conexion.Conectar();
 
         try {
-            int filas = st.executeUpdate("UPDATE administrador SET nombreAdministrador = '" + getNombreAdministrador() + "', tipoDocumentoAdministrador = " + getTipoDocumentoAdministrador() + ", documentoAdministrador = " + getDocumentoAdministrador() + ", correoAdministrador = " + getCorreoAdministrador() + ", contraseñaAdministrador = " + getContraseñaAdministrador() + ", rolAdministrador = " + getRolAdministrador() + "WHERE idAdministrador =" + getIdAdministrador());
+            String sql = "UPDATE administrador SET nombreAdministrador = '" + getNombreAdministrador() + "', "
+                    + "tipoDocumentoAdministrador = " + getTipoDocumentoAdministrador().getIdTipoDocumento() + ", "
+                    + "documentoAdministrador = '" + getDocumentoAdministrador() + "', "
+                    + "correoAdministrador = '" + getCorreoAdministrador() + "', "
+                    + "rolAdministrador = " + getRolAdministrador().getIdRol() + " WHERE idAdministrador =" + getIdAdministrador();
+            int filas = st.executeUpdate(sql);
             if (filas > 0) {
                 Auditoria auditoria = new Auditoria();
                 auditoria.InsertarAuditoria("Administrador Modificado", "Owner");
@@ -303,6 +308,7 @@ public class Administrador {
                 administrador.setTipoDocumentoAdministrador(tipoDocumento);
 
                 administrador.setDocumentoAdministrador(rs.getString("documentoAdministrador"));
+                administrador.setCorreoAdministrador(rs.getString("correoAdministrador"));
 
                 rol.setIdRol(rs.getInt("idRol"));
                 rol.setDescripcionRol(rs.getString("descripcionRol"));
@@ -352,7 +358,40 @@ public class Administrador {
         } finally {
             conexion.Desconectar();
         }
-
     }
 
+    public boolean VerificarDocumentoAdministrador(String documentoAdministrador) {
+        Conexion conexion = new Conexion();
+        Statement st = conexion.Conectar();
+
+        String sql = "SELECT idAdministrador, documentoAdministrador FROM administrador WHERE documentoAdministrador = '" + documentoAdministrador + "'";
+        try {
+            ResultSet rs = st.executeQuery(sql);
+            return rs.next();
+        } catch (SQLException ex) {
+            System.err.println("Error al verificar documento administrador --- " + ex);
+        } finally {
+            conexion.Desconectar();
+        }
+
+        return false;
+    }
+
+    public boolean VerificarCorreoAdministrador(String documentoAdministrador) {
+        Conexion conexion = new Conexion();
+        Statement st = conexion.Conectar();
+
+        String sql = "SELECT idAdministrador, correoAdministrador FROM administrador WHERE correAdministrador = " + getCorreoAdministrador();
+
+        try {
+            ResultSet rs = st.executeQuery(sql);
+            return rs.next();
+        } catch (SQLException ex) {
+            System.err.println("Error al verificar correo administrador --- " + ex);
+        } finally {
+            conexion.Desconectar();
+        }
+
+        return false;
+    }
 }

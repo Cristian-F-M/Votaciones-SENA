@@ -23,6 +23,7 @@
             <!-- body -->
             <div class="contenedor__form">
                 <form action="ControladorAdministrador" method="post">
+                    <input id="IdAdministrador" type="hidden" name="fIdAdministrador">
                     <label for="NombreAdministrador">Nombre</label>
                     <input id="NombreAdministrador" name="fNombreAdministrador" type="text">
                     <label for="TipoDocumentoAdministrador">Tipo Documento</label>
@@ -75,7 +76,7 @@
             <div class="contenedor__form">
                 <form action="ControladorAdministrador" method="post">
                     <label for="NombreAdministradorR">Nombre</label>
-                    <input id="NombreAdministradorR" name="fNombreAdministrador" type="text">
+                    <input required id="NombreAdministradorR" name="fNombreAdministrador" type="text">
                     <label for="TipoDocumentoAdministradorR">Tipo Documento</label>
                     <select name="fTipoDocumentoAdministrador" id="TipoDocumentoAdministradorR">
                         <c:forEach items="${TipoDocumento.Listar(0)}" var="tipoDocumento">
@@ -83,9 +84,11 @@
                         </c:forEach>
                     </select>
                     <label for="DocumentoAdministradorR">Documento</label>
-                    <input id="DocumentoAdministradorR" name="fDocumentoAdministrador" type="text">
+                    <input required id="DocumentoAdministradorR" name="fDocumentoAdministrador" type="text">
+                    <p id="mensaje" data-name="MensajeDocumento"></p>
                     <label for="CorreoAdministradorR">correo</label>
-                    <input id="CorreoAdministradorR" name="fCorreoAdministrador" type="email">
+                    <input required id="CorreoAdministradorR" name="fCorreoAdministrador" type="email">
+                    <p id="mensaje" data-name="MensajeCorreo"></p>
                     <label for="RolAdministradorR">Rol</label>
                     <select name="fRolAdministrador" id="RolAdministradorR">
                         <c:forEach items="${Rol.Listar(0)}" var="rol">
@@ -94,7 +97,7 @@
                     </select>
                     <div id="contenedor__botones" class="contenedor__botones">
                         <button id="CancelarRegistrar" value="Cancelar" type="button">Cancelar</button>
-                        <button name="CRUD" value="Editar">Guardar</button>
+                        <button id="BTN__RegistrarA" name="CRUD" value="Registrar">Registrar</button>
                     </div>
                 </form>
             </div>

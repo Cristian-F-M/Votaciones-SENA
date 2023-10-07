@@ -35,18 +35,18 @@ public class ControladorAdministrador extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ControladorAdministrador</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ControladorAdministrador at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+//        try (PrintWriter out = response.getWriter()) {
+//            /* TODO output your page here. You may use following sample code. */
+//            out.println("<!DOCTYPE html>");
+//            out.println("<html>");
+//            out.println("<head>");
+//            out.println("<title>Servlet ControladorAdministrador</title>");
+//            out.println("</head>");
+//            out.println("<body>");
+//            out.println("<h1>Servlet ControladorAdministrador at " + request.getContextPath() + "</h1>");
+//            out.println("</body>");
+//            out.println("</html>");
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -77,7 +77,7 @@ public class ControladorAdministrador extends HttpServlet {
             throws ServletException, IOException {
 
         String id = request.getParameter("fIdAdministrador");
-        String nombreAdministrador = request.getParameter("fNombreAdmistrador");
+        String nombreAdministrador = request.getParameter("fNombreAdministrador");
         String ftipoDocumento = request.getParameter("fTipoDocumentoAdministrador");
         String documentoAdministrador = request.getParameter("fDocumentoAdministrador");
         String correoAdministrador = request.getParameter("fCorreoAdministrador");
@@ -86,7 +86,6 @@ public class ControladorAdministrador extends HttpServlet {
         String accion = request.getParameter("CRUD");
 
 //        System.out.println("Formulario" + documentoAdministrador);
-
         int idAdministrador = 0;
         try {
             idAdministrador = Integer.parseInt(id);
@@ -128,19 +127,20 @@ public class ControladorAdministrador extends HttpServlet {
             case "Registrar":
                 mensaje = "Administrador registrado";
                 administrador.Insertar();
-                request.getRequestDispatcher("WEB-INF/RegistrarAdministrador.jsp?mensaje=" + mensaje).forward(request, response);
+                request.getRequestDispatcher("WEB-INF/Administradores.jsp?mensaje=" + mensaje).forward(request, response);
                 break;
 
-            case "Modificar":
+            case "Editar":
                 mensaje = "Administrado editado";
                 administrador.Modificar();
-                request.getRequestDispatcher("WEB-INF/ListarAdministrador.jsp?mensaje=" + mensaje).forward(request, response);
+                System.out.println("Administrado editado");
+                request.getRequestDispatcher("WEB-INF/Administradores.jsp?mensaje=" + mensaje).forward(request, response);
                 break;
 
             case "Eliminar":
                 mensaje = "Administrador eliminado";
                 administrador.Eliminar();
-                request.getRequestDispatcher("WEB-INF/ListarAdministrador.jsp?mensaje=" + mensaje).forward(request, response);
+                request.getRequestDispatcher("WEB-INF/Administradores.jsp?mensaje=" + mensaje).forward(request, response);
                 break;
 
             case "IniciarSesion":
@@ -174,6 +174,23 @@ public class ControladorAdministrador extends HttpServlet {
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().write(json);
 
+                break;
+
+            case "verificarDocumento":
+                String vDocumentoAdministrador = request.getParameter("documentoAdministrador");
+
+                String respuesta = String.valueOf(administrador.VerificarDocumentoAdministrador(vDocumentoAdministrador));
+                System.out.println(respuesta);
+                response.setContentType("text/plain");
+                response.getWriter().write(respuesta);
+                break;
+
+            case "verificarCorreo":
+                String vCorreoAdministrador = request.getParameter("correoAdministrador");
+                respuesta = String.valueOf(administrador.VerificarCorreoAdministrador(vCorreoAdministrador));
+
+                response.setContentType("text/plain");
+                response.getWriter().write(respuesta);
                 break;
         }
 
