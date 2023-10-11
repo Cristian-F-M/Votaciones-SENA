@@ -106,8 +106,14 @@ header.scroll {
     color: white;
 }
 
+.img{
+    width: 6%;
+    display: flex;
+    justify-content: center;
+}
 
 .img img {
-    width: 80px;
-    width: 65px;
+    width: 80%;
+    height: 100%;
+    cursor: pointer;
 }

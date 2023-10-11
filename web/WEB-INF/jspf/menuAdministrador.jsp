@@ -13,16 +13,16 @@
     <link rel="stylesheet" href="archivos/icons/icons/bootstrap-icons.css"/>
 </head>
 <header>
-    <div class="img"><img src="archivos/images/logo-SENA.jpg" alt="Logo del sena"></div> 
+    <div class="img"><img id="logo" src="archivos/images/logo-SENA.jpg" alt="Logo del sena"></div> 
     <!--<div class="img"><a href="a.html"><img src="logo-SENA.png" alt="Logo del sena"></a></div>-->
     <ul>
         <li><a id="Inicio" href="ControladorMenuAdministrador?opcion=Inicio">Inicio</a></li> <!--El inicio es el mismo votacion-->
         <li><a id="Aprendices" href="ControladorMenuAdministrador?opcion=Aprendices">Aprendices</a></li>
-        <li><a id="Candidatos" href="ControladorMenuAdministrador?opcion=Candidatos">Candidato</a></li>
+        <li><a id="Candidatos" href="ControladorMenuAdministrador?opcion=Candidatos">Candidatos</a></li>
         <li><a id="Historial" href="ControladorMenuAdministrador?opcion=Historial">Historial</a></li>
             <c:choose>
-                <%--<c:when test="${sessionScope.rolAdministrador == 1}">--%>
-                <c:when test="${1 == 1}">
+                <c:when test="${sessionScope.rolAdministrador == 1}">
+                    <%--<c:when test="${1 == 1}">--%>
                 <li><a id="Administradores" href="ControladorMenuAdministrador?opcion=Administrador">Administradores</a></li>
                 <li><a id="Otros" href="ControladorMenuAdministrador?opcion=Otros">Otros</a></li>
                 </c:when>
@@ -96,6 +96,10 @@
     }
     opcionSeleccionada.style.borderBottom = "2px solid white";
 
+    var logo = document.getElementById("logo");
+    logo.addEventListener('click', () => {
+        window.location.href = "/proyectoFormativo";
+    });
 </script>
 <script src="archivos/js/js/bootstrap.js"></script>
 </html>

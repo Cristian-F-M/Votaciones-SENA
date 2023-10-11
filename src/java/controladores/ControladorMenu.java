@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import modelos.Aprendiz;
 
 /**
  *
@@ -71,6 +72,11 @@ public class ControladorMenu extends HttpServlet {
 
             case "InicioAdministrador":
                 request.getRequestDispatcher("WEB-INF/IniciarSesionAdministrador.jsp").forward(request, response);
+                break;
+
+            case "EditarPefil":
+                request.getRequestDispatcher("WEB-INF/EditarAprendiz.jsp").forward(request, response);
+//                request.getAttribute("idAprendiz")
                 break;
 
             default:

@@ -106,13 +106,13 @@ public class ControladorAprendiz extends HttpServlet {
 
         Aprendiz aprendiz = new Aprendiz();
         TipoDocumento unTipoDocumento = new TipoDocumento();
-        
+
         aprendiz.setIdAprendiz(idAprendiz);
         aprendiz.setNombreAprendiz(nombreAprendiz);
-        
+
         unTipoDocumento.setIdTipoDocumento(tipoDocumentoAprendiz);
         aprendiz.setTipoDocumentoAprendiz(unTipoDocumento);
-        
+
         aprendiz.setDocumentoAprendiz(documentoAprendiz);
         aprendiz.setCorreoAprendiz(correoAprendiz);
         aprendiz.setContraseñaAprendiz(contraseñaAprendiz);
@@ -158,7 +158,8 @@ public class ControladorAprendiz extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("idAprendiz", aprendizIniciado.getIdAprendiz());
                     session.setAttribute("nombreAprendiz", aprendizIniciado.getNombreAprendiz());
-                    session.setAttribute("tipoDocumentoAprendiz", aprendizIniciado.getTipoDocumentoAprendiz());
+                    session.setAttribute("tipoDocumentoAprendiz", aprendizIniciado.getTipoDocumentoAprendiz().getIdTipoDocumento());
+                    session.setAttribute("descripcionTipoDocumentoAprendiz", aprendizIniciado.getTipoDocumentoAprendiz().getDescripcionTipoDocumento());
                     session.setAttribute("documentoAprendiz", aprendizIniciado.getDocumentoAprendiz());
                     session.setAttribute("correoAprendiz", aprendizIniciado.getCorreoAprendiz());
                     session.setAttribute("candidato", aprendizIniciado.getCandidato());
@@ -209,7 +210,8 @@ public class ControladorAprendiz extends HttpServlet {
 
                 response.setContentType("text/plain");
                 response.getWriter().write(respuesta);
-                break;
+                break; 
+
             default:
                 System.out.println("No se encontro ninguna accion en el controlador");
         }

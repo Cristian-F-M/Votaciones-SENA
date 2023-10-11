@@ -8,8 +8,9 @@
 <link rel="stylesheet" href="archivos/css/cssMenu.css"/>
 <link rel="stylesheet" href="archivos/icons/icons/bootstrap-icons.css"/>
 <header>
-    <div class="img"><img src="archivos/images/logo-SENA.jpg" alt="Logo del sena"></div> 
-    <!--<div class="img"><a href="a.html"><img src="logo-SENA.png" alt="Logo del sena"></a></div>-->
+    <div class="img">
+        <img id="logo" src="archivos/images/logo-SENA.jpg" alt="Logo del sena">
+    </div> 
     <ul>
         <li><a href="ControladorMenu?opcion=Home">Inicio</a></li>
         <li><a id="Representante" href="ControladorMenu?opcion=Representante">Representante</a></li>
@@ -46,12 +47,12 @@
                 <c:when test="${sessionScope.idAprendiz != null}">
                     <li><a href="ControladorMenu?opcion=EditarPefil">Editar perfil</a></li>
                     <li><a href="ControladorMenu?opcion=CerrarSesion">Cerrar sesión</a></li>
-                </c:when>
-                <c:otherwise>
+                    </c:when>
+                    <c:otherwise>
                     <li><a href="ControladorMenu?opcion=IniciarSesion">Iniciar Sesion</a></li>
                     <li><a href="ControladorMenu?opcion=Registrar">Registrarse</a></li>
-                </c:otherwise>
-            </c:choose>
+                    </c:otherwise>
+                </c:choose>
 
         </ul>
     </div>
@@ -109,10 +110,12 @@
         var datos = "fAccion=Representante";
         xhr.send(datos);
 
+        var logo = document.getElementById("logo");
+        logo.addEventListener('click', () => {
+            window.location.href = "ControladorMenu?opcion=InicioAdministrador";
+        });
+
     });
-
-
-
 </script>
 <script src="archivos/js/js/bootstrap.js"></script>
 

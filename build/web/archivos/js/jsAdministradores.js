@@ -142,13 +142,20 @@ BTN_closeRegistrar.addEventListener('click', cerrarVentanaRegistrar);
 
 function cerrarVentanaRegistrar() {
     contenedor__pop_registrar.classList.remove("mostrar");
+     LimpiarFormulario();
     setTimeout(function () {
-        // contenedor__ventana.style.display = "none";
         contenedor__ventana_registrar.classList.remove("mostrar");
     }, 200);
 }
 
-
+function LimpiarFormulario(){
+    
+    document.getElementById("NombreAdministradorR").value = "";
+    document.getElementById("TipoDocumentoAdministradorR").options[0].selected = "true";
+    document.getElementById("DocumentoAdministradorR").value = "";
+    document.getElementById("CorreoAdministradorR").value = "";
+    document.getElementById("RolAdministradorR").options[0].selected = true;
+}
 
 
 function informacionAdministrador(idAdministrador) {

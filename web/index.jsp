@@ -6,8 +6,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +15,6 @@
         <link rel="stylesheet" href="archivos/icons/icons/bootstrap-icons.css"/>
         <link rel="shortcut icon" href="archivos/images/logo-SENA.jpg" type="image/x-icon">
         <link rel="stylesheet" href="archivos/css/css/bootstrap.css"/>
-
         <title>SENA-Votaciones</title>
     </head>
 

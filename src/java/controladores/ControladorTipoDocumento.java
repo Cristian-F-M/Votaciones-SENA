@@ -18,7 +18,7 @@ import modelos.TipoDocumento;
  * @author pirul
  */
 @WebServlet(name = "ConrtoladorTipoDocumento", urlPatterns = {"/ConrtoladorTipoDocumento"})
-public class ConrtoladorTipoDocumento extends HttpServlet {
+public class ControladorTipoDocumento extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

@@ -181,12 +181,12 @@ public class Administrador {
         Statement st = conexion.Conectar();
 
         try {
+            
             String contraseñaAdministradorHash = BCrypt.hashpw(getContraseñaAdministrador(), BCrypt.gensalt());
 
             AutoIncrement();
             String sql = "INSERT INTO administrador VALUES(" + getIdAdministrador() + ",'" + getNombreAdministrador() + "', " + getTipoDocumentoAdministrador().getIdTipoDocumento() + ", '" + getDocumentoAdministrador() + "', '" + getCorreoAdministrador() + "', '" + contraseñaAdministradorHash + "', " + getRolAdministrador().getIdRol() + ")";
-//            String sql = "INSERT INTO administrador VALUES(null, 'Cristian Morales', 1, '1101752630', 'cforales.diaz@gmail.com', '" + contraseñaAdministradorHash + "', 1)";
-
+           
             int filas = st.executeUpdate(sql);
             if (filas > 0) {
                 Auditoria auditoria = new Auditoria();
@@ -241,15 +241,14 @@ public class Administrador {
         Conexion conexion = new Conexion();
         Statement st = conexion.Conectar();
 
-        String sql = "SELECT * FROM " + this.getClass().getSimpleName() + " WHERE tipoDocumentoAdministrador = " + getTipoDocumentoAdministrador().getIdTipoDocumento() + " AND documentoAdministrador = '" + getDocumentoAdministrador() + "'";
+        String sql = "SELECT * FROM " + this.getClass().getSimpleName() + " INNER JOIN tipoDocumento ON tipoDocumentoAdministrador = idTipoDocumento INNER JOIN rol ON rolAdministrador = idRol WHERE tipoDocumentoAdministrador = " + getTipoDocumentoAdministrador().getIdTipoDocumento() + " AND documentoAdministrador = '" + getDocumentoAdministrador() + "'";
         try {
 //            System.out.println(sql);
             ResultSet rs = st.executeQuery(sql);
 
             if (rs.next()) {
                 String contraseñaAdmin = rs.getString("contraseñaAdministrador");
-//                System.out.println(contraseñaAdmin);
-//                System.out.println(getContraseñaAdministrador());
+                
                 if (BCrypt.checkpw(getContraseñaAdministrador(), contraseñaAdmin)) {
                     Administrador administrador = new Administrador();
                     TipoDocumento tipoDocumento = new TipoDocumento();
@@ -258,7 +257,7 @@ public class Administrador {
                     administrador.setIdAdministrador(rs.getInt("idAdministrador"));
                     administrador.setNombreAdministrador(rs.getString("nombreAdministrador"));
 
-                    tipoDocumento.setIdTipoDocumento(rs.getInt("tipoDocumento"));
+                    tipoDocumento.setIdTipoDocumento(rs.getInt("tipoDocumentoAdministrador"));
                     tipoDocumento.setDescripcionTipoDocumento(rs.getString("descripcionTipoDocumento"));
                     administrador.setTipoDocumentoAdministrador(tipoDocumento);
 
@@ -277,7 +276,7 @@ public class Administrador {
             }
 
         } catch (SQLException ex) {
-//            System.err.println("Error al listar la información del administrador --- " + ex.getLocalizedMessage());
+            System.err.println("Error al iniciar session administrador --- " + ex.getLocalizedMessage());
         } finally {
             conexion.Desconectar();
         }

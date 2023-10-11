@@ -42,7 +42,11 @@ public class ControladorMenuAdministrador extends HttpServlet {
                 break;
 
             case "EditarPefil":
-                request.getRequestDispatcher("WEB-INF/EditarAdministrador.jsp").forward(request, response);
+                HttpSession session = request.getSession();
+                out.println(session.getAttribute("nombreAdministrador"));
+                out.println("<br>");
+                out.println(session.getAttribute("rolAdministrador"));
+//                request.getRequestDispatcher("WEB-INF/EditarAdministrador.jsp").forward(request, response);
                 break;
 
             case "CerrarSesion":
@@ -74,6 +78,7 @@ public class ControladorMenuAdministrador extends HttpServlet {
             case "Otros":
                 request.getRequestDispatcher("WEB-INF/Otros.jsp").forward(request, response);
                 break;
+                
 
             default:
                 out.println("No hay opción en el controlador");

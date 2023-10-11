@@ -89,6 +89,8 @@
                     <label for="CorreoAdministradorR">correo</label>
                     <input required id="CorreoAdministradorR" name="fCorreoAdministrador" type="email">
                     <p id="mensaje" data-name="MensajeCorreo"></p>
+                    <label for="PasswordAdministradorR">Contraseña</label>
+                    <input id="PasswordAdministradorR" type="password" name="fPasswordAdministrador">
                     <label for="RolAdministradorR">Rol</label>
                     <select name="fRolAdministrador" id="RolAdministradorR">
                         <c:forEach items="${Rol.Listar(0)}" var="rol">

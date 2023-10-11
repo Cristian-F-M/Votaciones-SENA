@@ -20,7 +20,7 @@ import modelos.Candidato;
  * @author pirul
  */
 @WebServlet(name = "ContralodorCandidato", urlPatterns = {"/ContralodorCandidato"})
-public class ContralodorCandidato extends HttpServlet {
+public class ControladorCandidato extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
