@@ -1,0 +1,57 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 28/10/2023, 4:30:06 p. m.
+    Author     : pirul
+*/
+
+body {
+    height: 100vh;
+    margin: 0;
+}
+
+
+.overlay{
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.overlay.hidden{
+    display: none;
+}
+
+
+.loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: .2rem;
+    background-color: white;
+    width: 140px;
+    height: 75px;
+}
+
+.loader {
+    border: 4px solid #cecece;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin .7s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

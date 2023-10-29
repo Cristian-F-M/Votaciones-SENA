@@ -1,0 +1,18 @@
+<link rel="stylesheet" href="archivos/css/cssLoading.css"/>
+<div class="overlay hidden">
+    <div class="loading">
+        <div class="loader">
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector(".overlay").classList.remove('hidden');
+        document.querySelector(".main").style.opacity = "0";
+        setTimeout(() => {
+            document.querySelector('.overlay').classList.add('hidden');
+            document.querySelector(".main").style.opacity = "1";
+        }, 1000);
+    });
+</script>

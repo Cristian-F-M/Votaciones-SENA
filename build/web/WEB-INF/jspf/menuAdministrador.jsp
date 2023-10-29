@@ -102,4 +102,5 @@
     });
 </script>
 <script src="archivos/js/js/bootstrap.js"></script>
+<jsp:include page="Loading.jspf"/>
 </html>

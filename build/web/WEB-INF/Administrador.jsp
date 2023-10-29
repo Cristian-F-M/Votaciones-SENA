@@ -12,10 +12,12 @@
         <link rel="stylesheet" href="archivos/css/css/bootstrap.css"/>
         <link rel="shortcut icon" href="archivos/images/logo-SENA.jpg" type="image/x-icon">
         <title>Votaciones</title>
-    </head>
+    </head> 
     <body style="background-color: gray;">
         <jsp:include page="jspf/menuAdministrador.jsp" />
-        
+        <div class="main">
+            asdsads
+        </div>
         <!--Aqui van la lista de todas la votaciones y la votación actual, para agregar una votacion, y modificar la actual-->
     </body>
 </html>

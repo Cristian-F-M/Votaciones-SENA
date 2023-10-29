@@ -15,5 +15,8 @@
     </head>
     <body>
         <jsp:include page="jspf/menuAdministrador.jsp" />
+        <div class="main">
+            asdasdasd
+        </div>
     </body>
 </html>

@@ -52,7 +52,7 @@ public class ControladorMenuAdministrador extends HttpServlet {
             case "CerrarSesion":
                 HttpSession sessionAdministrador = request.getSession();
                 sessionAdministrador.invalidate();
-                request.getRequestDispatcher("WEB-INF/Administrador.jsp").forward(request, response);
+                request.getRequestDispatcher("WEB-INF/IniciarSesionAdministrador.jsp").forward(request, response);
                 break;
 
             case "Inicio":
